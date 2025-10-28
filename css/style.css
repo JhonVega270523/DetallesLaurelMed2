@@ -1,0 +1,4202 @@
+:root {
+    --primary-gold: #D4AF37; /* Dorado */
+    --dark-gold: #B8941E;    /* Dorado oscuro */
+    --light-gold: #F4E4C1;   /* Dorado claro */
+    --white: #FFFFFF;
+    --off-white: #FAFAFA;
+    --gray: #F5F5F5;
+    --dark-gray: #333333;
+    --black: #000000;
+    --text-color: #2C2C2C;
+}
+
+/* Desplazamiento suave para todos los anclajes internos */
+html {
+    scroll-behavior: smooth;
+}
+
+/* ============================================
+   HERO CAROUSEL / BANNER PRINCIPAL
+   ============================================ */
+
+.hero-carousel {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    margin-bottom: 30px;
+}
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.carousel-slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-slide.active {
+    opacity: 1;
+    z-index: 1;
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.7);
+}
+
+.carousel-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    z-index: 2;
+    width: 90%;
+    max-width: 800px;
+}
+
+.carousel-content h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3em;
+    margin: 0 0 20px 0;
+    color: white;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+.carousel-content p {
+    font-size: 1.3em;
+    margin: 0 0 30px 0;
+    color: white;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+.carousel-cta {
+    display: flex;
+    justify-content: center;
+}
+
+.carousel-btn {
+    padding: 15px 35px;
+    font-size: 1.1em;
+    font-weight: bold;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.carousel-btn-primary {
+    background: linear-gradient(135deg, var(--primary-gold) 0%, var(--dark-gold) 100%);
+    color: var(--black);
+}
+
+.carousel-btn-primary:hover {
+    background: linear-gradient(135deg, var(--dark-gold) 0%, var(--primary-gold) 100%);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 6px 25px rgba(212, 175, 55, 0.6);
+}
+
+/* Controles del carrusel */
+.carousel-controls {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    z-index: 3;
+}
+
+.carousel-arrow {
+    background: rgba(255, 255, 255, 0.3);
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    color: white;
+    font-size: 2em;
+    backdrop-filter: blur(5px);
+    padding: 0;
+    padding-bottom: 3px;
+    line-height: 1;
+    user-select: none;
+    font-family: Arial, sans-serif;
+    font-weight: normal;
+}
+
+.carousel-arrow:hover {
+    background: rgba(212, 175, 55, 0.8);
+    transform: scale(1.1);
+}
+
+/* Indicadores del carrusel */
+.carousel-indicators {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 3;
+}
+
+.carousel-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.carousel-indicator.active {
+    background: var(--primary-gold);
+    width: 30px;
+    border-radius: 6px;
+}
+
+.carousel-indicator:hover {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+/* Animaciones del carrusel - Solo transiciones suaves entre slides */
+
+/* Responsive para el Hero Carousel */
+@media (max-width: 900px) {
+    .hero-carousel {
+        height: 400px;
+    }
+
+    .carousel-content h2 {
+        font-size: 2.2em;
+    }
+
+    .carousel-content p {
+        font-size: 1.1em;
+    }
+
+    .carousel-btn {
+        padding: 12px 28px;
+        font-size: 1em;
+    }
+
+    .carousel-arrow {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2em;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-carousel {
+        height: 350px;
+        margin-bottom: 20px;
+    }
+
+    .carousel-content h2 {
+        font-size: 1.8em;
+        margin-bottom: 15px;
+    }
+
+    .carousel-content p {
+        font-size: 1em;
+        margin-bottom: 20px;
+    }
+
+    .carousel-btn {
+        padding: 10px 24px;
+        font-size: 0.9em;
+    }
+
+    /* Ocultar flechas en móvil para usar swipe */
+    .carousel-controls {
+        display: none;
+    }
+
+    .carousel-indicator {
+        width: 10px;
+        height: 10px;
+    }
+
+    .carousel-indicator.active {
+        width: 24px;
+    }
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: var(--gray);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+header {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    color: var(--white);
+    padding: 10px 0 15px 0;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    position: relative;
+    border-bottom: 3px solid var(--primary-gold);
+}
+
+header h1 {
+    font-family: 'Playfair Display', serif;
+    margin: 0;
+    font-size: 3em;
+    letter-spacing: 2px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Estilos para la animación de escritura */
+#typewriter-title {
+    white-space: nowrap;
+    overflow: hidden;
+    position: relative;
+    opacity: 0; /* Initially hidden but space reserved */
+    transition: opacity 0.3s ease;
+    /* Fijar altura mínima para evitar cambios de tamaño */
+    min-height: 1.2em;
+    line-height: 1.2;
+    display: block;
+}
+
+/* Cursor parpadeante */
+#typewriter-title::after {
+    content: '';
+    position: absolute;
+    right: -3px;
+    top: 0;
+    height: 100%;
+    width: 3px;
+    background-color: var(--white);
+    animation: blink-caret 0.75s step-end infinite;
+    opacity: var(--cursor-opacity, 1);
+}
+
+/* Animación del cursor parpadeante */
+@keyframes blink-caret {
+    from, to {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+/* Ajuste para pantallas pequeñas */
+@media (max-width: 768px) {
+    #typewriter-title {
+        font-size: 2.2em;
+        min-height: 1.2em;
+        line-height: 1.2;
+    }
+}
+
+@media (max-width: 480px) {
+    #typewriter-title {
+        font-size: 1.8em;
+        min-height: 1.2em;
+        line-height: 1.2;
+    }
+}
+
+.author-signature {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    text-align: right;
+    max-width: 580px;
+    margin: -5px auto 5px;
+    padding-right: 133px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+header > p {
+    font-size: 1.2em;
+    margin-top: 0px;
+    text-align: center;
+    max-width: 580px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-right: 0px;
+}
+
+/* Estilos para los iconos de redes sociales en el header */
+.social-icons {
+    position: absolute;
+    bottom: 10px;
+    left: 15px;
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+}
+
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    text-decoration: none;
+}
+
+.social-icon:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+    transform: scale(1.1);
+}
+
+.social-icon svg {
+    width: 18px;
+    height: 18px;
+    color: var(--white);
+}
+
+/* Texto "Tienda Virtual" en la esquina inferior derecha del header */
+.tienda-virtual {
+    position: absolute;
+    bottom: 10px; /* Igual que .social-icons para alinear horizontalmente */
+    right: 15px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--white);
+    z-index: 10;
+}
+
+/* ============================================
+   LOGO EN EL HEADER (CENTRADO)
+   ============================================ */
+
+/* Ocultar el título original */
+#typewriter-title {
+    display: none;
+}
+
+.header-logo {
+    position: relative;
+    display: block;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    z-index: 100;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.header-logo:hover {
+    transform: scale(1.05);
+}
+
+.header-logo img {
+    display: inline-block;
+    width: 220px;
+    height: auto;
+    margin: 0;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+}
+
+/* Responsive para el logo */
+@media (max-width: 768px) {
+    .header-logo img {
+        width: 180px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-logo img {
+        width: 140px;
+    }
+}
+
+/* Navbar Styles */
+nav {
+    background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+    padding: 10px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    position: relative; /* Asegura que el nav sea el contexto para el pseudo-elemento */
+    overflow: hidden;   /* Importante para que la luz solo se vea dentro del nav */
+    border-bottom: 2px solid var(--primary-gold);
+}
+
+/* Pseudo-elemento para la luz dorada que ilumina todo el nav */
+nav::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -30%; /* Comienza fuera de la vista a la izquierda (negativo del ancho de la luz) */
+    width: 30%; /* Ancho de la franja de luz, ajusta si quieres que sea más ancha/estrecha */
+    height: 100%;
+    /* Degradado lineal para crear un efecto de "luz" dorada suave y difusa */
+    background: linear-gradient(to right, 
+                rgba(212, 175, 55, 0) 0%,      /* Completamente transparente al inicio */
+                rgba(212, 175, 55, 0.3) 50%,   /* Dorado en el centro */
+                rgba(212, 175, 55, 0) 100%);   /* Vuelve a ser transparente al final */
+    z-index: 0; /* Asegura que la luz esté detrás del contenido de navegación */
+    animation: sweepLight 3s infinite linear alternate; /* Animación continua, ida y vuelta */
+    pointer-events: none; /* Permite que los clics pasen a los enlaces debajo */
+}
+
+/* Keyframes para la animación de la luz */
+@keyframes sweepLight {
+    0% {
+        left: -30%; /* Inicia fuera por la izquierda (ajústalo según el width de la luz) */
+    }
+    100% {
+        left: 100%; /* Termina fuera por la derecha */
+    }
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    position: relative; /* Muy importante para que los enlaces estén encima de la luz */
+    z-index: 2; /* Asegura que el contenido del nav esté por encima de nav::before */
+}
+
+nav ul li a {
+    color: var(--white);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1em;
+    padding: 5px 10px;
+    transition: color 0.3s ease, transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+nav ul li a svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}
+
+nav ul li a:hover {
+    color: var(--primary-gold);
+    transform: scale(1.05);
+}
+
+/* Reglas para mostrar/ocultar textos según el tamaño de pantalla */
+/* Por defecto (desktop): mostrar nav-text-desktop, ocultar nav-text-mobile */
+.nav-text-desktop {
+    display: inline;
+}
+
+.nav-text-mobile {
+    display: none;
+}
+
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 10px auto; /* Reducido de 20px a 10px */
+    padding: 15px;
+    background-color: var(--white);
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+    text-align: center; /* Añadido para centrar el texto por defecto */
+}
+
+/* Reducir margen superior específicamente para Sobre Nosotros y Contáctanos */
+#nosotros,
+#contacto {
+    margin-top: 10px;
+}
+
+#nosotros .container,
+#contacto .container {
+    padding-top: 10px;
+}
+
+@media (max-width: 900px) {
+    #contacto .container {
+        width: 100%;
+        padding: 0;
+        border-radius: 0;
+        margin: 0;
+        box-shadow: none;
+    }
+}
+
+/* Regla general para h2: Centrado por defecto (para otros h2 que no sean el de Contacto) */
+h2 {
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+    color: var(--black);
+    margin-top: 5px; /* Reducir margen superior */
+    margin-bottom: 10px;
+    font-size: 2.5em;
+    position: relative; /* Necesario para posicionar el pseudo-elemento */
+    overflow: hidden;   /* Para contener la barra */
+    padding-bottom: 0; /* Sin barra inferior */
+    display: inline-block; /* Para que la barra se ajuste al ancho del texto si el h2 no es block */
+    z-index: 0;
+}
+
+h2::before {
+    content: none; /* Quitar barra animada */
+}
+
+/* Define los keyframes para la animación de la barra */
+@keyframes fillAndEmpty {
+    0% {
+        width: 0; /* Empieza vacía */
+    }
+    100% {
+        width: 100%; /* Se llena completamente */
+    }
+}
+
+/* Nuevos estilos para la sección de categorías */
+.categories {
+    margin-top: 8px; /* Reduce espacio por encima del título */
+}
+
+/* Compactar padding interno solo para la sección de categorías */
+.categories .container {
+    padding-top: 6px;
+    padding-bottom: 12px;
+}
+
+.section-title {
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+    color: var(--black);
+    margin: 6px 0 10px; /* Reduce espacio arriba y abajo del título */
+    padding-bottom: 2px; /* Reduce la separación de la barra inferior */
+    font-size: 2.5em;
+}
+
+/* Título más compacto específicamente en la sección de categorías */
+.categories .section-title {
+    margin: 0 0 8px;
+}
+
+/* Título más compacto en la sección de productos */
+.products .section-title {
+    margin: 0 0 8px;
+}
+
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 tarjetas por fila en escritorio */
+    gap: 24px;
+    margin-top: 12px; /* Acerca las tarjetas al título */
+}
+
+.category-card {
+    background-color: var(--white);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    height: auto; /* Asegura que la tarjeta se adapte a su contenido */
+    border: 2px solid var(--gray);
+}
+
+.category-card:hover {
+    transform: none; /* Sin movimiento en hover */
+    box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
+    border-color: var(--primary-gold);
+}
+
+/* Contenedor para la relación de aspecto de la imagen de categoría */
+.category-card-image-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 125%; /* Más alta para mostrar más de la imagen */
+    overflow: hidden;
+    background: linear-gradient(135deg, #F5F5F5 0%, #FAFAFA 100%); /* Placeholder gris claro */
+    border-bottom: 2px solid var(--primary-gold); /* Borde dorado debajo del wrapper de imagen */
+}
+
+.category-card-image-wrapper img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Llena el ancho sin dejar bordes blancos laterales */
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+}
+
+.category-card-image-wrapper img.loaded {
+    opacity: 1;
+}
+
+.category-card h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--black);
+    margin: 8px 0 10px; /* Menos espacio arriba y abajo del título */
+    font-size: 1.1em; /* Título un poco más pequeño */
+    line-height: 1.2;
+}
+
+/* Nuevos estilos para la sección de productos */
+.products {
+    margin-top: 60px;
+}
+
+.products .container {
+    padding-top: 15px;
+}
+
+.filter-buttons {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.filter-btn {
+    background-color: var(--black);
+    color: var(--white);
+    border: 2px solid var(--black);
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background-color: var(--primary-gold);
+    border-color: var(--primary-gold);
+    color: var(--black);
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 tarjetas por fila en escritorio */
+    gap: 20px;
+}
+
+.product-card {
+    background-color: var(--white);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: auto;
+    min-height: unset;
+    padding-bottom: 10px;
+    border: 2px solid var(--gray);
+}
+
+.product-card:hover {
+    transform: none; /* Sin movimiento en hover */
+    box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
+    border-color: var(--primary-gold);
+}
+
+.product-card > img { /* El ">" selecciona solo hijos directos */
+    width: 100%;
+    height: 350px; /* Altura fija más grande para todas las imágenes */
+    object-fit: cover; /* Cubrir todo el espacio manteniendo proporción */
+    padding: 0;
+    border-bottom: 2px solid var(--primary-gold);
+    background: linear-gradient(135deg, #F5F5F5 0%, #FAFAFA 100%); /* Placeholder gris claro */
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+    cursor: pointer; /* Indicar que es clickeable */
+}
+
+.product-card > img.loaded {
+    opacity: 1;
+}
+
+/* Este estilo ya está definido en la sección de favoritos */
+
+.product-card p {
+    padding: 0 10px;
+    font-size: 0.85em;
+    color: var(--text-color);
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.product-card .product-price {
+    display: none;
+}
+
+.product-card .product-actions {
+    display: grid; /* Usar grid para poder centrar el precio en el espacio restante */
+    grid-template-columns: auto 1fr; /* 1ª col: acciones izq; 2ª col: espacio flexible */
+    align-items: center;
+    gap: 14px;
+    margin-top: auto;
+    margin-bottom: 0;
+    padding: 10px 16px; /* espacio lateral igual a ambos lados */
+    width: 100%;
+}
+
+.product-actions-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* ESTILOS DEL BOTÓN "VER DETALLES" (modificado para ser más pequeño) */
+.product-card .btn-detail {
+    display: flex; /* Usar flex para centrar el texto verticalmente */
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    background-color: var(--black);
+    color: var(--white);
+    border: 2px solid var(--black);
+    padding: 6px 10px; /* Reducido para hacerlo más pequeño */
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-size: 0.75em; /* Fuente aún más pequeña */
+    min-width: 40px; /* Un ancho mínimo para que no se haga demasiado pequeño */
+    height: 40px; /* Una altura fija similar al icono de WhatsApp */
+}
+
+.product-card .btn-detail:hover {
+    background-color: var(--primary-gold);
+    border-color: var(--primary-gold);
+    color: var(--black);
+}
+
+.product-card .whatsapp-icon-btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    transition: transform 0.2s ease;
+    width: 40px;
+    height: 40px;
+}
+
+.product-card .whatsapp-icon-btn:hover {
+    transform: scale(1.1);
+}
+
+/* Regla para la imagen dentro del botón de WhatsApp */
+.product-card .whatsapp-icon-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Precio visible a la derecha de los botones en la tarjeta */
+.product-price-tag {
+    margin-left: -30px; /* Evita sesgo hacia la derecha */
+    justify-self: center; /* Centra el precio entre el botón de WhatsApp y el borde derecho */
+    font-weight: 700;
+    color: var(--dark-gray);
+    font-size: 0.95em;
+    white-space: nowrap; /* Evita cortes del precio */
+}
+
+/* ============================================
+   SISTEMA DE FAVORITOS/WISHLIST
+   ============================================ */
+
+/* Botón de favorito en la tarjeta de producto */
+.favorite-button {
+    background: transparent;
+    border: none;
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+    margin-left: 8px;
+    vertical-align: middle;
+}
+
+.favorite-button:hover {
+    transform: scale(1.15);
+}
+
+.favorite-button svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: var(--dark-gray);
+    stroke-width: 2;
+    transition: all 0.3s ease;
+}
+
+.favorite-button.active svg {
+    fill: #e74c3c;
+    stroke: #e74c3c;
+    animation: heartBeat 0.6s ease;
+}
+
+/* Contenedor del título del producto con el botón de favorito */
+.product-card h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--black);
+    margin: 10px 0 5px;
+    font-size: 1.4em;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+@keyframes heartBeat {
+    0%, 100% {
+        transform: scale(1);
+    }
+    25% {
+        transform: scale(1.3);
+    }
+    50% {
+        transform: scale(1);
+    }
+    75% {
+        transform: scale(1.15);
+    }
+}
+
+/* Botón flotante de favoritos */
+#floatingFavoritesBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    z-index: 99;
+    border: none;
+    outline: none;
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    color: white;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(231, 76, 60, 0.4);
+    transition: all 0.3s ease;
+}
+
+#floatingFavoritesBtn:hover {
+    background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(231, 76, 60, 0.6);
+}
+
+#floatingFavoritesBtn svg {
+    width: 24px;
+    height: 24px;
+    fill: white;
+}
+
+/* Badge contador de favoritos */
+.favorites-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: var(--primary-gold);
+    color: var(--black);
+    font-size: 0.75em;
+    font-weight: bold;
+    padding: 3px 7px;
+    border-radius: 12px;
+    min-width: 20px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    animation: bounceIn 0.5s ease;
+}
+
+/* Modal de Favoritos */
+.favorites-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.favorites-modal.active {
+    display: flex;
+}
+
+.favorites-modal-content {
+    background-color: var(--white);
+    padding: 30px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 900px;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    border: 3px solid var(--primary-gold);
+    position: relative;
+    animation: slideInDown 0.4s ease;
+}
+
+.favorites-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--light-gold);
+}
+
+.favorites-modal-header h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--black);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.favorites-modal-header h2 svg {
+    width: 30px;
+    height: 30px;
+    fill: #e74c3c;
+}
+
+.favorites-close-button {
+    color: var(--dark-gray);
+    font-size: 32px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    background: none;
+    border: none;
+    line-height: 1;
+}
+
+.favorites-close-button:hover {
+    color: #e74c3c;
+}
+
+.favorites-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+    align-items: stretch;
+}
+
+.favorite-item {
+    background: var(--white);
+    border: 2px solid var(--gray);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.favorite-item:hover {
+    border-color: var(--primary-gold);
+    box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
+}
+
+.favorite-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.favorite-item-info {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    min-height: 0;
+}
+
+.favorite-item-info h4 {
+    font-family: 'Playfair Display', serif;
+    color: var(--black);
+    margin: 0 0 8px 0;
+    font-size: 1.1em;
+    line-height: 1.3;
+    min-height: 2.6em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.favorite-item-info p {
+    color: var(--dark-gray);
+    font-weight: bold;
+    margin: 0 0 auto 0;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.favorite-item-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: auto;
+}
+
+.favorite-item-actions button {
+    flex: 1;
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    font-size: 0.85em;
+}
+
+.btn-view-favorite {
+    background: var(--black);
+    color: var(--white);
+}
+
+.btn-view-favorite:hover {
+    background: var(--primary-gold);
+    color: var(--black);
+}
+
+.btn-remove-favorite {
+    background: #e74c3c;
+    color: white;
+}
+
+.btn-remove-favorite:hover {
+    background: #c0392b;
+}
+
+.empty-favorites {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--dark-gray);
+}
+
+.empty-favorites svg {
+    width: 80px;
+    height: 80px;
+    fill: #ddd;
+    margin-bottom: 20px;
+}
+
+.empty-favorites h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--black);
+    margin-bottom: 10px;
+}
+
+.empty-favorites p {
+    font-size: 1.1em;
+}
+
+@keyframes slideInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Estilos para la paginación */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    gap: 8px; /* Espacio reducido entre botones */
+    flex-wrap: wrap; /* Permite que los botones se envuelvan */
+    padding: 0 10px; /* Añade un pequeño padding para los bordes */
+}
+
+.pagination button {
+    background-color: var(--black);
+    color: var(--white);
+    border: 2px solid var(--black);
+    padding: 8px 12px; /* Padding ajustado */
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    font-size: 0.9em; /* Tamaño de fuente ajustado */
+}
+
+.pagination button:hover:not(.active) {
+    background-color: var(--primary-gold);
+    border-color: var(--primary-gold);
+    color: var(--black);
+}
+
+.pagination button.active {
+    background-color: var(--primary-gold);
+    border-color: var(--primary-gold);
+    color: var(--black);
+    cursor: default;
+}
+
+/* WhatsApp Button in Contact Section */
+.whatsapp-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #25D366;
+    color: var(--white);
+    padding: 15px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-top: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    /* Animación para el botón de WhatsApp (efecto de pulso) */
+    animation: pulse 2s infinite ease-in-out; /* Aplica la animación de pulso */
+}
+
+.whatsapp-button:hover {
+    background-color: #1DA851;
+    transform: translateY(-3px);
+}
+
+.whatsapp-button img {
+    width: 24px;
+    height: 24px;
+}
+
+/* Botón flotante de WhatsApp */
+#floatingWhatsAppBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 99;
+    border: none;
+    outline: none;
+    background-color: #25D366;
+    color: white;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#floatingWhatsAppBtn:hover {
+    background-color: #128C7E;
+    transform: translateY(-3px);
+}
+
+#floatingWhatsAppBtn svg {
+    width: 24px;
+    height: 24px;
+    filter: brightness(0) invert(1);
+    display: block;
+}
+
+/* Scroll to Top Button */
+#scrollToTopBtn {
+    display: none;
+    position: fixed;
+    bottom: 140px;
+    right: 20px;
+    z-index: 99;
+    border: 2px solid var(--primary-gold);
+    outline: none;
+    background-color: var(--black);
+    color: var(--primary-gold);
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 18px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    line-height: 1;
+    padding: 0;
+    margin: 0;
+}
+
+#scrollToTopBtn:hover {
+    background-color: var(--primary-gold);
+    color: var(--black);
+    transform: translateY(-3px);
+}
+
+/* Asegurar que la flecha esté siempre centrada */
+#scrollToTopBtn::before {
+    content: '▲';
+    display: block;
+    text-align: center;
+    line-height: 1;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    color: var(--white);
+    padding: 20px 0;
+    margin-top: 50px;
+    font-size: 0.9em;
+    border-top: 3px solid var(--primary-gold);
+    position: relative;
+}
+
+/* Ocultar saltos de línea en desktop */
+.mobile-br {
+    display: none;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+}
+
+.footer-logo {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.footer-logo:hover {
+    transform: translateY(-50%) scale(1.05);
+}
+
+.footer-logo img {
+    width: 120px;
+    height: auto;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+}
+
+.footer-info {
+    text-align: center;
+    width: 100%;
+}
+
+.footer-info p {
+    margin: 5px 0;
+    text-align: center;
+}
+
+/* MODAL STYLES: Simplified for immediate visibility */
+.modal {
+    display: none; /* Hidden by default. JS will change to 'flex' */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: var(--white);
+    margin: auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 700px; /* Ancho máximo para escritorio */
+    box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
+    border: 2px solid var(--primary-gold);
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch; /* Estira columnas para misma altura */
+    gap: 25px;
+    box-sizing: border-box;
+    
+    /* Centrado fijo para evitar "brincos" */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Siempre centrado por defecto */
+    transition: none; /* Reset any lingering transitions */
+}
+
+.close-button {
+    color: var(--dark-gray);
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    z-index: 1001; /* Asegurar que esté por encima de todo */
+    background: rgba(255, 255, 255, 0.9);
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    user-select: none;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: var(--primary-gold);
+    text-decoration: none;
+    background: rgba(212, 175, 55, 0.2);
+}
+
+/* Estilos para el contenedor de la imagen en el modal */
+.modal-image-wrapper {
+    flex: 1;
+    max-width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    position: relative;
+}
+
+#modalDetailImage {
+    width: 100%;
+    height: 350px; /* Misma altura que las imágenes de las tarjetas */
+    object-fit: cover; /* Mismo comportamiento que las imágenes de las tarjetas */
+    border-radius: 8px;
+    margin-bottom: 0;
+    background: linear-gradient(135deg, #F5F5F5 0%, #FAFAFA 100%);
+    border: 2px solid var(--primary-gold);
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out, transform 0.3s ease;
+    cursor: zoom-in;
+}
+
+#modalDetailImage.loaded {
+    opacity: 1;
+}
+
+#modalDetailImage:hover {
+    transform: scale(1.02);
+}
+
+/* Indicador de zoom en la imagen */
+.zoom-indicator {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 0.85em;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.zoom-indicator svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+}
+
+/* Modal de zoom para imagen ampliada */
+.image-zoom-modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.image-zoom-modal.active {
+    display: flex;
+}
+
+.image-zoom-content {
+    position: relative;
+    max-width: 95%;
+    max-height: 95vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-zoom-content img {
+    max-width: 100%;
+    max-height: 95vh;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+    animation: zoomIn 0.3s ease;
+}
+
+.zoom-close-button {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 2001;
+    background: rgba(0, 0, 0, 0.5);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    border: 2px solid var(--primary-gold);
+}
+
+.zoom-close-button:hover {
+    background: var(--primary-gold);
+    color: var(--black);
+    transform: rotate(90deg);
+}
+
+.zoom-instructions {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 0.9em;
+    text-align: center;
+    animation: fadeInUp 0.5s ease 0.3s both;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+/* ============================================
+   MODAL DE LOGO AMPLIADO
+   ============================================ */
+
+.logo-modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.logo-modal.active {
+    display: flex;
+}
+
+.logo-modal-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-modal-content img {
+    max-width: 600px;
+    max-height: 90vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+    animation: zoomIn 0.3s ease;
+}
+
+.logo-close-button {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 2001;
+    background: rgba(0, 0, 0, 0.5);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    border: 2px solid var(--primary-gold);
+}
+
+.logo-close-button:hover {
+    background: var(--primary-gold);
+    color: var(--black);
+    transform: rotate(90deg);
+}
+
+.logo-modal-text {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 0.9em;
+    text-align: center;
+    animation: fadeInUp 0.5s ease 0.3s both;
+}
+
+/* ============================================
+   MODAL DE BIENVENIDA
+   ============================================ */
+
+.welcome-modal {
+    display: none;
+    position: fixed;
+    z-index: 3000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.5s ease;
+}
+
+.welcome-modal.active {
+    display: flex;
+}
+
+.welcome-modal-content {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 248, 248, 0.98) 100%);
+    padding: 20px 25px;
+    border-radius: 20px;
+    max-width: 420px;
+    width: 85%;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+    border: 3px solid var(--primary-gold);
+    animation: scaleIn 0.5s ease;
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.welcome-close-button {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    color: var(--dark-gray);
+    font-size: 32px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 3001;
+    background: rgba(0, 0, 0, 0.05);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.welcome-close-button:hover {
+    background: var(--primary-gold);
+    color: var(--white);
+    transform: rotate(90deg);
+    border-color: var(--dark-gold);
+}
+
+.welcome-logo {
+    margin-bottom: 12px;
+    animation: bounceIn 0.8s ease;
+}
+
+.welcome-logo img {
+    max-width: 160px;
+    height: auto;
+    filter: drop-shadow(0 4px 15px rgba(212, 175, 55, 0.4));
+}
+
+.welcome-modal-content h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--black);
+    margin: 8px 0 6px;
+    font-size: 1.5em;
+    line-height: 1.2;
+}
+
+.welcome-modal-content p {
+    color: var(--text-color);
+    font-size: 0.95em;
+    margin: 5px 0;
+    line-height: 1.4;
+}
+
+.welcome-subtitle {
+    font-size: 0.88em !important;
+    color: #666;
+    margin-bottom: 12px !important;
+}
+
+.welcome-start-btn {
+    background: linear-gradient(135deg, var(--primary-gold) 0%, var(--dark-gold) 100%);
+    color: var(--black);
+    border: none;
+    padding: 10px 30px;
+    font-size: 0.95em;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+    font-family: 'Montserrat', sans-serif;
+}
+
+.welcome-start-btn:hover {
+    background: linear-gradient(135deg, var(--dark-gold) 0%, var(--primary-gold) 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(212, 175, 55, 0.6);
+}
+
+/* Responsive para modal de bienvenida */
+@media (max-width: 768px) {
+    .welcome-modal-content {
+        padding: 18px 22px;
+        max-width: 380px;
+    }
+
+    .welcome-logo img {
+        max-width: 140px;
+    }
+
+    .welcome-modal-content h2 {
+        font-size: 1.4em;
+        margin: 6px 0 5px;
+    }
+
+    .welcome-modal-content p {
+        font-size: 0.9em;
+        margin: 4px 0;
+    }
+
+    .welcome-start-btn {
+        padding: 9px 26px;
+        font-size: 0.9em;
+        margin-top: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .welcome-modal-content {
+        padding: 16px 18px;
+        width: 88%;
+        max-width: 340px;
+    }
+
+    .welcome-close-button {
+        top: 8px;
+        right: 8px;
+        width: 32px;
+        height: 32px;
+        font-size: 24px;
+    }
+
+    .welcome-logo {
+        margin-bottom: 8px;
+    }
+
+    .welcome-logo img {
+        max-width: 130px;
+    }
+
+    .welcome-modal-content h2 {
+        font-size: 1.25em;
+        margin: 6px 0 4px;
+    }
+
+    .welcome-modal-content p {
+        font-size: 0.85em;
+        margin: 4px 0;
+    }
+
+    .welcome-subtitle {
+        font-size: 0.8em !important;
+        margin-bottom: 10px !important;
+    }
+
+    .welcome-start-btn {
+        padding: 8px 22px;
+        font-size: 0.85em;
+        margin-top: 8px;
+    }
+}
+
+/* Estilos para el contenedor de la información en el modal */
+.modal-info-wrapper {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    position: relative; /* Para posicionar el botón y logo al fondo */
+    padding-bottom: 70px; /* Espacio para el botón y logo fijo al fondo */
+}
+
+#modalDetailName {
+    font-family: 'Playfair Display', serif;
+    color: var(--black);
+    margin-bottom: 8px;
+    font-size: 1.6em;
+}
+
+#modalDetailPrice {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: var(--dark-gray);
+    margin-bottom: 10px;
+    display: block !important;
+}
+
+#modalDetailDescription {
+    font-size: 0.95em;
+    color: var(--text-color);
+    margin-bottom: 15px;
+    flex-grow: 1;
+    overflow-y: auto;
+    max-height: 150px;
+    line-height: 1.5;
+    text-align: justify;
+}
+
+#modalDetailWhatsappBtn {
+    background-color: #25D366;
+    color: var(--white);
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+    position: absolute;
+    left: 0; /* Posicionado a la izquierda */
+    bottom: 15px; /* Pegado al fondo del modal */
+    white-space: nowrap; /* Evita salto de línea en el texto */
+    display: inline-block; /* Mantiene el ancho natural del botón */
+}
+
+#modalDetailWhatsappBtn:hover {
+    background-color: #1DA851;
+}
+
+/* Logo en el modal de productos */
+.modal-logo {
+    position: absolute;
+    right: 0;
+    bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.modal-logo img {
+    width: 80px;
+    height: auto;
+    opacity: 0.85;
+    transition: opacity 0.3s ease;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.modal-logo img:hover {
+    opacity: 1;
+}
+
+/* Estilos para el Formulario de Contacto */
+.contact-form {
+    max-width: 600px;
+    margin: 0;
+    padding: 15px;
+    background-color: var(--white);
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+}
+
+@media (max-width: 900px) {
+    .contact-form {
+        max-width: none; /* Sin límite de ancho en móvil */
+        border-radius: 0; /* Sin bordes redondeados en móvil */
+        box-shadow: none; /* Sin sombra en móvil */
+        padding: 10px 15px 5px; /* Reducir padding superior e inferior */
+    }
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: var(--dark-gray);
+    font-size: 1.05em;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1em;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
+.form-group textarea:focus {
+    border-color: var(--primary-gold);
+    outline: none;
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.submit-button {
+    display: block;
+    width: 100%;
+    background-color: var(--black);
+    color: var(--white);
+    padding: 15px 25px;
+    border: 2px solid var(--black);
+    border-radius: 5px;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: var(--primary-gold);
+    border-color: var(--primary-gold);
+    color: var(--black);
+    transform: translateY(-2px);
+}
+
+/* Estilos para el layout principal de la sección de Contacto (dos columnas grandes) */
+.main-contact-section-layout {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 0;
+    padding: 10px 20px; /* Reducir padding superior */
+}
+
+@media (max-width: 900px) {
+    .main-contact-section-layout {
+        padding: 5px; /* Reducir padding en móvil */
+        gap: 5px; /* Reducir gap entre secciones */
+    }
+}
+
+.main-contact-left {
+    flex: 1;
+    min-width: 300px;
+    padding: 15px 20px; /* Reducir padding superior de 20px a 15px */
+    background-color: var(--white);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.03);
+    text-align: left; /* Por defecto, alineado a la izquierda en pantallas grandes */
+    margin-top: 0;
+}
+
+@media (max-width: 900px) {
+    .main-contact-left {
+        border-radius: 0; /* Sin bordes redondeados en móvil */
+        box-shadow: none; /* Sin sombra en móvil */
+        padding: 10px 15px; /* Reducir padding superior */
+    }
+}
+
+.main-contact-left h2 {
+    font-family: 'Playfair Display', serif;
+    margin-top: 0;
+    margin-bottom: 20px; /* Reducido de 30px a 20px */
+    color: var(--black);
+    font-size: 2.5em;
+    /* La animación se mantiene */
+    animation: bounceIn 1s ease-out forwards; 
+    
+    /* Por defecto, alineado a la izquierda en pantallas grandes */
+    text-align: left; 
+    /* Aseguramos que ocupe todo el ancho disponible para centrar su contenido */
+    width: 100%; 
+    display: block; /* Aseguramos que sea un elemento de bloque para que text-align funcione */
+    position: relative; /* Necesario para posicionar el pseudo-elemento */
+    overflow: hidden;   /* Para contener la barra */
+    padding-bottom: 0; /* Sin barra bajo el título */
+}
+
+.main-contact-left h2::before {
+    content: none; /* Quitar barra animada */
+}
+
+.main-contact-left p {
+    text-align: left;
+    max-width: unset;
+    margin: 0 0 20px 0;
+}
+
+.main-contact-left ul {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.main-contact-left .whatsapp-button {
+    margin-left: 0;
+    display: inline-flex;
+}
+
+.main-contact-right {
+    flex: 1;
+    min-width: 300px;
+    max-width: 600px;
+}
+
+@media (max-width: 900px) {
+    .main-contact-right {
+        max-width: none; /* Sin límite de ancho en móvil */
+        padding-top: 5px; /* Reducir padding superior */
+    }
+}
+
+/* Animaciones */
+@keyframes bounceIn {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3);
+    }
+    50% {
+        transform: scale(1.03);
+        box-shadow: 0 6px 15px rgba(212, 175, 55, 0.5);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3);
+    }
+}
+
+
+/* Media Queries para Responsividad */
+@media (max-width: 900px) {
+    /* Reducir tamaño de párrafos justificados en móvil */
+    #nosotros p {
+        font-size: 0.95em !important;
+    }
+
+    .main-contact-left > p {
+        font-size: 0.95em !important;
+    }
+
+    .main-contact-section-layout {
+        flex-direction: column;
+        align-items: stretch; /* Hacer que las columnas ocupen todo el ancho */
+        gap: 5px; /* Reducir gap entre las dos columnas de contacto */
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    
+    /* Reducir espacios en secciones */
+    .categories {
+        margin-top: 5px;
+    }
+    
+    .products {
+        margin-top: 10px;
+    }
+    
+    #nosotros {
+        margin-top: 10px;
+    }
+    
+    #contacto {
+        margin-top: 10px;
+    }
+
+    /* Centrado y tamaño de los contenedores main-contact-left y main-contact-right */
+    .main-contact-left,
+    .main-contact-right {
+        min-width: unset;
+        width: 100%; /* Ocupa todo el ancho disponible */
+        max-width: none; /* Sin límite de ancho máximo */
+        padding: 15px; /* Aumenta un poco el padding interno para más espacio */
+        margin-left: 0;
+        margin-right: 0;
+        box-sizing: border-box;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .main-contact-left h2 {
+        /* Centrado solo para pantallas pequeñas */
+        text-align: center; /* Esto centrará el título en pantallas <= 900px */
+        width: 100%; /* Asegura que ocupe todo el ancho para el centrado */
+        display: block; /* Vuelve a confirmar que es un bloque */
+    }
+
+    /* También es importante centrar el texto dentro de main-contact-left si es necesario */
+    .main-contact-left p,
+    .main-contact-left ul,
+    .main-contact-left .whatsapp-button {
+        text-align: center; 
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* Asegura que la lista se centre correctamente */
+    .main-contact-left ul {
+        list-style-position: inside;
+        padding-left: 0;
+    }
+
+    .main-contact-left ul li {
+        margin-bottom: 10px;
+        /* --- Ajuste de tamaño de fuente para Email, Teléfono/WhatsApp y Horario --- */
+        font-size: 0.9em; /* Tamaño de fuente por defecto para esta media query (900px) */
+        text-align: center; /* Asegura que el texto de la lista se centre */
+    }
+
+    .main-contact-left .whatsapp-button {
+        display: flex;
+        justify-content: center;
+    }
+
+    /* Ajuste para 3 columnas en categoría y productos */
+    .category-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* 3 columnas */
+        gap: 15px;
+    }
+    .filter-btn {
+        padding: 8px 15px;
+        font-size: 0.9em;
+    }
+
+    /* Ajuste para 3 columnas en categoría y productos */
+    .product-grid {
+        grid-template-columns: repeat(3, 1fr); /* 3 columnas en tablet */
+        gap: 15px;
+    }
+
+    .product-card {
+        height: auto;
+        min-height: unset;
+    }
+
+    .product-card img {
+        height: 280px; /* Altura ajustada para tablets */
+    }
+
+    /* MODAL CONTENT FOR MOBILE */
+    .modal-content {
+        flex-direction: column;
+        width: 95%;
+        max-width: 380px;
+        height: auto;
+        max-height: 98vh;
+        padding: 15px;
+        padding-top: 45px; /* Espacio extra para la X */
+        gap: 15px;
+        align-items: center;
+        box-sizing: border-box;
+        
+        transition: none; /* Make sure there's no transition delaying visibility */
+    }
+
+    /* Botón de cerrar visible en móvil */
+    .close-button {
+        top: 8px;
+        right: 8px;
+        width: 32px;
+        height: 32px;
+        font-size: 24px;
+        background: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        z-index: 1002;
+    }
+    .modal-info-wrapper {
+        padding-bottom: 0 !important;
+        position: static !important;
+        display: block !important;
+        text-align: center;
+    }
+    
+    /* Hacer que el título, precio y descripción ocupen todo el ancho */
+    .modal-info-wrapper #modalDetailName {
+        width: 100%;
+        display: block;
+    }
+    
+    .modal-info-wrapper #modalDetailPrice {
+        width: 100%;
+        display: block;
+    }
+    
+    .modal-info-wrapper #modalDetailDescription {
+        width: 100%;
+        display: block;
+        margin-bottom: 15px;
+        text-align: justify;
+    }
+    
+    /* Contenedor para botón y logo en la misma línea */
+    .modal-info-wrapper #modalDetailWhatsappBtn {
+        position: static !important;
+        display: inline-flex !important;
+        align-items: center;
+        width: auto !important;
+        margin-top: 0;
+        margin-bottom: 0;
+        margin-right: 10px;
+        left: auto;
+        bottom: auto;
+        vertical-align: middle;
+    }
+    
+    .modal-info-wrapper .modal-logo {
+        position: static !important;
+        display: inline-flex !important;
+        align-items: center;
+        width: auto !important;
+        margin-top: 0;
+        margin-bottom: 0;
+        margin-left: 0;
+        right: auto;
+        bottom: auto;
+        vertical-align: middle;
+    }
+    
+    .modal-logo img {
+        width: 60px;
+        display: block;
+    }
+
+    /* Ajustes de la imagen del modal para móviles */
+    .modal-image-wrapper {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-bottom: 2px solid var(--primary-gold);
+        margin-bottom: 15px;
+        overflow: hidden;
+    }
+
+    #modalDetailImage {
+        width: 100%;
+        height: 450px; /* Altura aumentada para que el cliente vea mejor la foto completa */
+        object-fit: cover;
+        display: block;
+    }
+
+    /* Ajustes del contenedor de información del modal */
+    .modal-info-wrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        flex-grow: 1;
+        padding: 0 5px;
+    }
+
+    /* Ajustes para el zoom en móviles */
+    .zoom-indicator {
+        font-size: 0.75em;
+        padding: 6px 10px;
+        bottom: 8px;
+        right: 8px;
+    }
+
+    .zoom-close-button {
+        top: 15px;
+        right: 15px;
+        width: 45px;
+        height: 45px;
+        font-size: 35px;
+    }
+
+    .zoom-instructions {
+        font-size: 0.85em;
+        padding: 8px 15px;
+        bottom: 15px;
+    }
+
+    #modalDetailName {
+        font-size: 1.2em;
+        margin-top: 5px;
+        margin-bottom: 8px;
+        line-height: 1.2;
+        order: 1;
+    }
+
+    #modalDetailPrice {
+        font-size: 1em;
+        margin-bottom: 10px;
+        order: 2;
+    }
+
+    #modalDetailDescription {
+        font-size: 0.85em;
+        max-height: 90px;
+        overflow-y: auto;
+        line-height: 1.4;
+        margin-bottom: 0;
+        width: 100%;
+        flex: 0 0 100%;
+        order: 3;
+        text-align: justify;
+    }
+
+    .modal-info-wrapper #modalDetailWhatsappBtn {
+        position: static !important;
+        padding: 8px 15px;
+        font-size: 0.85em;
+        margin-top: 0;
+        margin-bottom: 0;
+        margin-right: 10px;
+        left: auto;
+        bottom: auto;
+        display: inline-flex !important;
+        align-items: center;
+        width: auto !important;
+        vertical-align: middle;
+    }
+    
+    /* Logo del modal en móvil pequeño: en la misma línea que el botón de WhatsApp */
+    .modal-info-wrapper .modal-logo {
+        position: static !important;
+        margin-top: 0;
+        margin-bottom: 0;
+        margin-left: 0;
+        right: auto;
+        bottom: auto;
+        display: inline-flex !important;
+        align-items: center;
+        width: auto !important;
+        vertical-align: middle;
+    }
+    
+    .modal-logo img {
+        width: 55px;
+        display: block;
+    }
+
+    /* Botón flotante de WhatsApp para móviles */
+    #floatingWhatsAppBtn {
+        width: 40px;
+        height: 40px;
+        bottom: 15px;
+        right: 15px;
+    }
+    
+    #floatingWhatsAppBtn svg {
+        width: 18px;
+        height: 18px;
+    }
+    
+    /* MODIFICADO: Scroll to Top Button para ser circular en móviles */
+    #scrollToTopBtn {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.1em;
+        bottom: 65px;
+        right: 15px;
+        text-align: center;
+        position: fixed;
+        padding: 0;
+        margin: 0;
+        line-height: 1;
+    }
+}
+
+@media (max-width: 600px) { /* Breakpoint adicional para la navegación */
+    /* 1. Reducir altura del nav en vista móvil */
+    nav {
+        padding: 1px 0;
+    }
+    
+    nav ul {
+        flex-direction: row;
+        gap: 0;
+        padding: 1px 0;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        width: 100%;
+    }
+    nav ul li {
+        flex: 1;
+        text-align: center;
+    }
+    nav ul li a {
+        padding: 1px 0;
+        font-size: 0.6em;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0;
+        flex-direction: column;
+    }
+    nav ul li a svg {
+        width: 8px;
+        height: 8px;
+    }
+    
+    /* Reglas para móvil: mostrar nav-text-mobile, ocultar nav-text-desktop */
+    .nav-text-desktop {
+        display: none;
+    }
+
+    .nav-text-mobile {
+        display: inline;
+    }
+
+    /* Ajuste para pantallas más pequeñas para el correo, teléfono y horario */
+    .main-contact-left ul li {
+        font-size: 0.8em; /* Tamaño de fuente por defecto para esta media query (600px) */
+    }
+}
+
+@media (max-width: 768px) {
+    .social-icons {
+        bottom: 8px;
+        left: 10px;
+        gap: 8px;
+    }
+
+    .social-icon {
+        width: 30px;
+        height: 30px;
+    }
+
+    .social-icon svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .tienda-virtual {
+        bottom: 8px; /* Mantiene alineación horizontal con .social-icons */
+        right: 10px;
+        font-size: 0.95rem;
+    }
+    
+    /* Mostrar saltos de línea en móvil */
+    .mobile-br {
+        display: inline;
+    }
+    
+    /* Centrar textos en móvil */
+    .author-signature {
+        text-align: center;
+        padding-right: 0px;
+    }
+    
+    header > p {
+        text-align: center;
+        padding-right: 0px;
+    }
+
+    /* Footer responsive */
+    .footer-logo {
+        position: relative;
+        left: auto;
+        top: auto;
+        transform: none;
+        display: flex;
+        justify-content: center;
+        margin: 0 auto 15px auto;
+    }
+
+    .footer-logo:hover {
+        transform: scale(1.05);
+    }
+
+    .footer-logo img {
+        width: 100px;
+    }
+
+    .footer-info {
+        text-align: center;
+    }
+
+    .footer-info p {
+        text-align: center;
+    }
+    
+    /* Reglas para móvil (768px): mostrar nav-text-mobile, ocultar nav-text-desktop */
+    .nav-text-desktop {
+        display: none;
+    }
+
+    .nav-text-mobile {
+        display: inline;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Centrar textos en móvil pequeño */
+    .author-signature {
+        text-align: center;
+        padding-right: 0px;
+    }
+    
+    header > p {
+        text-align: center;
+        padding-right: 0px;
+    }
+
+    /* Footer responsive para móviles pequeños */
+    .footer-logo {
+        margin-bottom: 10px;
+    }
+
+    .footer-logo img {
+        width: 80px;
+    }
+
+    .footer-info {
+        font-size: 0.85em;
+    }
+
+    /* Modal de logo responsive */
+    .logo-modal-content img {
+        max-width: 95%;
+    }
+
+    .logo-close-button {
+        top: 10px;
+        right: 10px;
+        width: 40px;
+        height: 40px;
+        font-size: 30px;
+    }
+
+    .logo-modal-text {
+        font-size: 0.8em;
+        padding: 6px 12px;
+        bottom: 10px;
+    }
+    
+    /* 1. Reducir aún más la altura del nav en vista móvil */
+    nav {
+        padding: 3px 0;
+    }
+    
+    /* 2. Reducir espacios entre títulos y parte superior/contenido en vista móvil */
+    .container {
+        padding: 8px; /* Reducir padding interno */
+        margin: 5px auto; /* Reducir margen superior e inferior */
+    }
+    
+    /* Reducir espacio superior de las secciones */
+    .categories {
+        margin-top: 2px;
+    }
+    
+    .products {
+        margin-top: 5px;
+    }
+    
+    /* Reducir padding de los containers de secciones */
+    .categories .container {
+        padding-top: 2px;
+        padding-bottom: 5px;
+    }
+    
+    .products .container {
+        padding-top: 3px;
+        padding-bottom: 8px;
+    }
+    
+    /* Sección "Sobre Nosotros" */
+    #nosotros {
+        padding-top: 3px;
+        padding-bottom: 8px;
+        margin-top: 5px;
+    }
+    
+    #nosotros h2 {
+        margin-bottom: 8px !important; /* Reducir espacio entre título y párrafo */
+    }
+    
+    #nosotros p {
+        margin-top: 5px !important; /* Reducir espacio arriba del párrafo */
+    }
+    
+    /* Sección "Contáctanos" */
+    #contacto {
+        padding-top: 3px;
+        padding-bottom: 8px;
+        margin-top: 5px;
+    }
+    
+    /* Reducir espacio en el layout de contacto */
+    .main-contact-section-layout {
+        padding: 0 !important; /* Eliminar padding */
+        gap: 2px !important; /* Reducir gap entre "Escribenos" y "Envíanos un Mensaje" */
+        margin-top: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    /* 4. Igualar tamaño de todos los títulos al de "Sobre Nosotros" en móvil */
+    h2, .section-title {
+        font-size: 1.8em !important; /* Mismo tamaño para todos los títulos */
+        margin: 3px 0 8px !important; /* Reducir aún más los espacios arriba y abajo */
+    }
+    
+    /* Reducir espacio específicamente en el título "Contáctanos" */
+    .main-contact-left {
+        padding-top: 5px !important; /* Reducir padding superior */
+    }
+    
+    .main-contact-left h2 {
+        margin-top: 0 !important;
+        margin-bottom: 10px !important; /* Reducir espacio debajo del título */
+    }
+    
+    /* Reducir espacio del párrafo después de "Contáctanos" */
+    .main-contact-left > p:first-of-type {
+        margin-bottom: 15px !important;
+    }
+    
+    /* Reducir espacio de la lista de contacto */
+    .main-contact-left ul {
+        margin-bottom: 15px !important;
+    }
+    
+    /* Reducir espacio del botón WhatsApp "Escribenos" */
+    .main-contact-left .whatsapp-button {
+        margin-top: 10px !important;
+        margin-bottom: 5px !important; /* Reducir espacio debajo del botón */
+    }
+    
+    /* Reducir espacio en "Envíanos un Mensaje" */
+    .main-contact-right {
+        padding-top: 5px !important; /* Reducir padding superior */
+    }
+    
+    .main-contact-right h2 {
+        margin-top: 0 !important;
+        margin-bottom: 15px !important;
+    }
+    
+    /* Reducir espacio debajo del botón "Enviar Mensaje" */
+    .contact-form {
+        padding-bottom: 5px !important;
+    }
+    
+    .submit-button {
+        margin-bottom: 0 !important;
+    }
+    
+    /* Reducir aún más el tamaño de párrafos justificados en pantallas muy pequeñas */
+    #nosotros p {
+        font-size: 0.85em !important;
+    }
+
+    .main-contact-left > p {
+        font-size: 0.85em !important;
+    }
+
+    /* Botones flotantes aún más pequeños en pantallas muy pequeñas */
+    #floatingWhatsAppBtn {
+        width: 38px;
+        height: 38px;
+        bottom: 12px;
+        right: 12px;
+    }
+    
+    #floatingWhatsAppBtn svg {
+        width: 16px;
+        height: 16px;
+    }
+    
+    #floatingFavoritesBtn {
+        width: 38px;
+        height: 38px;
+        bottom: 60px;
+        right: 12px;
+    }
+    
+    #floatingFavoritesBtn svg {
+        width: 18px;
+        height: 18px;
+    }
+    
+    #scrollToTopBtn {
+        width: 38px;
+        height: 38px;
+        font-size: 1em;
+        bottom: 108px;
+        right: 12px;
+    }
+
+    /* Favoritos en tablet */
+    .product-card h3 {
+        font-size: 1.1em;
+    }
+
+    .favorite-button {
+        width: 26px;
+        height: 26px;
+        margin-left: 6px;
+    }
+
+    .favorite-button svg {
+        width: 22px;
+        height: 22px;
+    }
+
+    .favorites-modal-content {
+        width: 95%;
+        padding: 20px;
+        max-height: 90vh;
+    }
+
+    .favorites-modal-header h2 {
+        font-size: 1.5em;
+    }
+
+    .favorites-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        align-items: stretch;
+    }
+
+    .favorite-item img {
+        height: 180px;
+    }
+
+    .favorite-item-info {
+        padding: 12px;
+    }
+
+    .favorite-item-info h4 {
+        font-size: 0.95em;
+        min-height: 2.8em;
+    }
+
+    .favorite-item-actions button {
+        padding: 6px;
+        font-size: 0.8em;
+    }
+
+    .favorites-badge {
+        font-size: 0.7em;
+        padding: 2px 5px;
+    }
+
+    header h1 {
+        font-size: 2.2em; /* Reduce el tamaño del título en pantallas muy pequeñas */
+    }
+    
+    .social-icons {
+        bottom: 5px;
+        left: 8px;
+        gap: 6px;
+    }
+
+    .social-icon {
+        width: 28px;
+        height: 28px;
+    }
+
+    .social-icon svg {
+        width: 14px;
+        height: 14px;
+    }
+    
+    .tienda-virtual {
+        bottom: 5px; /* Mantiene alineación horizontal con .social-icons */
+        right: 8px;
+        font-size: 0.9rem;
+    }
+    
+    /* Ajustes adicionales para navegación en pantallas muy pequeñas */
+    nav ul {
+        gap: 8px;
+    }
+    
+    nav ul li a {
+        padding: 6px 8px;
+        font-size: 0.8em;
+    }
+    
+    nav ul li a svg {
+        width: 14px;
+        height: 14px;
+    }
+
+    .author-signature {
+        font-size: 1rem;
+    }
+
+    header p {
+        font-size: 1em;
+    }
+
+    /* Vuelve a 2 columnas en pantallas muy pequeñas para mejor legibilidad */
+    .category-grid {
+        grid-template-columns: repeat(3, 1fr); /* 3 columnas en móvil */
+        gap: 10px;
+        margin-top: 5px !important; /* Reducir espacio entre título y grid */
+    }
+
+    /* 3 columnas en productos en pantallas muy pequeñas */
+    .product-grid {
+        grid-template-columns: repeat(3, 1fr); /* 3 columnas en móvil */
+        gap: 10px;
+    }
+    
+    /* Reducir espacio en los filtros */
+    .filters-row-container {
+        margin: 8px auto 10px !important;
+        gap: 10px;
+    }
+
+    .filtros-categorias-container {
+        margin: 0 !important;
+        padding: 12px !important;
+    }
+
+    /* 1) Títulos más pequeños e iguales en categorías y productos */
+    .category-card h3 {
+        font-size: 0.95em;
+        margin: 6px 0 8px;
+    }
+
+    .product-card h3 {
+        font-size: 0.9em;
+        margin: 6px 0 8px;
+    }
+
+    .favorite-button {
+        width: 22px;
+        height: 22px;
+        margin-left: 4px;
+    }
+
+    .favorite-button svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    /* 2) Reacomodo de acciones para que botones y precio siempre se vean centrados */
+    .product-card .product-actions {
+        display: flex; /* Cambiar a flex para mejor control en móviles */
+        flex-direction: column; /* Apilar elementos verticalmente */
+        align-items: center; /* Centrar horizontalmente */
+        justify-content: center; /* Centrar verticalmente */
+        gap: 8px;
+        padding: 10px 0; /* Eliminar padding lateral para centrado perfecto */
+        width: 100%;
+        margin: 0 auto; /* Centrar el contenedor */
+    }
+    .product-actions-left {
+        display: flex;
+        gap: 10px;
+        justify-content: center; /* centra los dos botones */
+        align-items: center;
+        margin: 0 auto; /* Centrar la fila de botones */
+    }
+    /* 3. Igualar tamaño del botón "Ver" con el botón de WhatsApp en móvil */
+    .product-card .btn-detail {
+        height: 36px;
+        width: 36px; /* Mismo ancho que el botón de WhatsApp */
+        min-width: 36px;
+        padding: 0;
+        font-size: 0.65em;
+        margin: 0; /* Eliminar márgenes */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .product-card .whatsapp-icon-btn {
+        width: 36px;
+        height: 36px;
+        padding: 5px;
+        margin: 0; /* Eliminar márgenes */
+    }
+    .product-price-tag {
+        text-align: center;
+        font-size: 0.95em;
+        margin: 0 auto; /* Centrar completamente */
+        font-weight: 700;
+        display: block;
+        width: 100%;
+    }
+
+    .product-card {
+        height: auto;
+        min-height: unset;
+    }
+
+    .product-card img {
+        height: 200px; /* Altura más pequeña para móviles */
+    }
+
+    h2 {
+        font-size: 2em; /* Ajusta el tamaño de los títulos de sección */
+    }
+    
+    /* Ajuste para el modal en pantallas muy pequeñas */
+    .modal-content {
+        width: 95%; /* Ocupa casi todo el ancho */
+        padding: 10px;
+        padding-top: 40px; /* Espacio extra para la X */
+        gap: 10px;
+    }
+
+    /* Asegurar que la X sea visible en pantallas muy pequeñas */
+    .close-button {
+        top: 5px;
+        right: 5px;
+        width: 30px;
+        height: 30px;
+        font-size: 22px;
+        background: rgba(255, 255, 255, 1);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+    #modalDetailName {
+        font-size: 1.4em;
+    }
+    #modalDetailPrice {
+        font-size: 1em;
+    }
+    #modalDetailDescription {
+        font-size: 0.9em;
+        max-height: 80px; /* Aún más pequeño si es necesario */
+        text-align: justify;
+    }
+
+    /* Aún más ajuste para pantallas muy pequeñas para el correo, teléfono y horario */
+    .main-contact-left ul li {
+        font-size: 0.7em; /* Aún más pequeño para 480px y abajo */
+    }
+
+    /* Ajustes adicionales para el zoom en pantallas muy pequeñas */
+    .zoom-indicator {
+        font-size: 0.7em;
+        padding: 5px 8px;
+    }
+
+    .zoom-close-button {
+        top: 10px;
+        right: 10px;
+        width: 40px;
+        height: 40px;
+        font-size: 30px;
+    }
+
+    .zoom-instructions {
+        font-size: 0.8em;
+        padding: 6px 12px;
+        bottom: 10px;
+    }
+}
+
+/* Estilos para los mensajes del formulario */
+.form-message {
+    padding: 20px 25px;
+    margin: 25px 0;
+    border-radius: 15px;
+    font-weight: 600;
+    text-align: center;
+    animation: slideInDown 0.5s ease-out;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1em;
+    position: relative;
+    overflow: hidden;
+}
+
+.form-message::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 0;
+    height: 4px;
+    background-color: var(--primary-gold);
+    transform: translateX(-50%);
+    animation: fillAndEmpty 2s infinite alternate ease-in-out;
+}
+
+.form-message-success {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    color: var(--black);
+    border: 2px solid var(--primary-gold);
+    position: relative;
+}
+
+.form-message-success::after {
+    content: '✓';
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.5em;
+    color: var(--primary-gold);
+    font-weight: bold;
+}
+
+.form-message-error {
+    background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
+    color: #e53e3e;
+    border: 2px solid #e53e3e;
+    position: relative;
+}
+
+.form-message-error::after {
+    content: '⚠';
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.5em;
+    color: #e53e3e;
+    font-weight: bold;
+}
+
+@keyframes slideInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Estilos responsivos para los mensajes del formulario */
+@media (max-width: 600px) {
+    .form-message {
+        padding: 15px 20px;
+        margin: 20px 0;
+        font-size: 1em;
+        border-radius: 12px;
+    }
+    
+    .form-message::after {
+        top: 12px;
+        right: 15px;
+        font-size: 1.3em;
+    }
+}
+
+/* ============================================
+   SECCIÓN DE ESTADÍSTICAS
+   ============================================ */
+
+.stats-section {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    padding: 20px 0;
+    margin: 30px 0;
+    position: relative;
+    overflow: hidden;
+    border-top: 2px solid var(--primary-gold);
+    border-bottom: 2px solid var(--primary-gold);
+}
+
+.stats-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><path d="M0 0h80v80H0z" fill="none"/><path d="M0 0l40 40M40 0l40 40M0 40l40 40M40 40l40 40" stroke="rgba(212,175,55,0.1)" stroke-width="2"/></svg>');
+    opacity: 0.5;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 700px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.stat-item {
+    text-align: center;
+    color: white;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.stat-icon {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto 8px;
+    background: linear-gradient(135deg, var(--primary-gold) 0%, var(--dark-gold) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 10px rgba(212, 175, 55, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.4s ease;
+}
+
+.stat-icon svg {
+    width: 20px;
+    height: 20px;
+    fill: white;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.stat-item:hover .stat-icon {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 10px 35px rgba(212, 175, 55, 0.6);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.stat-number {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: black;
+    margin-bottom: 4px;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 0.75em;
+    color: black;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Animación de conteo */
+@keyframes countUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.stat-item.animate .stat-number {
+    animation: countUp 0.6s ease-out;
+}
+
+/* Responsive para estadísticas */
+@media (max-width: 900px) {
+    .stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+    }
+
+    .stat-number {
+        font-size: 1.5em;
+    }
+
+    .stat-icon {
+        width: 35px;
+        height: 35px;
+    }
+
+    .stat-icon svg {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .stat-label {
+        font-size: 0.7em;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-section {
+        padding: 15px 0;
+        margin: 20px 0;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        max-width: 100%;
+        padding: 0 10px;
+    }
+
+    .stat-number {
+        font-size: 1.2em;
+    }
+
+    .stat-label {
+        font-size: 0.6em;
+        letter-spacing: 0;
+    }
+
+    .stat-icon {
+        width: 30px;
+        height: 30px;
+        margin: 0 auto 5px;
+    }
+
+    .stat-icon svg {
+        width: 15px;
+        height: 15px;
+    }
+}
+
+/* ============================================
+   GALERÍA DE TIKTOK
+   ============================================ */
+
+.tiktok-gallery-section {
+    padding: 60px 0;
+    background: var(--off-white);
+}
+
+.gallery-subtitle {
+    text-align: center;
+    font-size: 1.1em;
+    color: var(--text-color);
+    max-width: 700px;
+    margin: 10px auto 40px;
+    line-height: 1.6;
+}
+
+.tiktok-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto 40px;
+    justify-items: center;
+}
+
+.tiktok-item {
+    width: 100%;
+    max-width: 195px;
+    height: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    background: #000;
+}
+
+.tiktok-item iframe {
+    width: 325px;
+    height: 750px;
+    border: none;
+    transform: scale(0.6);
+    transform-origin: top center;
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    margin-left: -162.5px;
+    pointer-events: auto;
+    touch-action: auto;
+}
+
+/* Efecto hover deshabilitado */
+
+.tiktok-cta {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.tiktok-follow-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 35px;
+    background: linear-gradient(135deg, #000000 0%, #333333 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-size: 1.1em;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.tiktok-follow-btn svg {
+    width: 24px;
+    height: 24px;
+    fill: white;
+}
+
+.tiktok-follow-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, #333333 0%, #000000 100%);
+}
+
+/* Responsive para galería TikTok */
+@media (max-width: 900px) {
+    .tiktok-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+    }
+
+    .tiktok-item {
+        max-width: 100%;
+        height: 330px;
+    }
+
+    .tiktok-item iframe {
+        transform: scale(0.56);
+        top: -28px;
+    }
+}
+
+@media (max-width: 768px) {
+    .tiktok-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .tiktok-item.hide-on-mobile {
+        display: none;
+    }
+
+    .tiktok-item {
+        height: 340px;
+    }
+
+    .tiktok-item iframe {
+        transform: scale(0.58);
+        top: -29px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tiktok-gallery-section {
+        padding: 40px 0;
+    }
+
+    .gallery-subtitle {
+        font-size: 1em;
+        margin: 10px auto 30px;
+        padding: 0 15px;
+    }
+
+    .tiktok-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .tiktok-item.hide-on-mobile {
+        display: none;
+    }
+
+    .tiktok-item {
+        max-width: 100%;
+        height: 350px;
+    }
+
+    .tiktok-item iframe {
+        transform: scale(0.6);
+        top: -30px;
+    }
+
+    .tiktok-follow-btn {
+        padding: 12px 25px;
+        font-size: 1em;
+    }
+
+    .tiktok-follow-btn svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+/* ============================================
+   SECCIÓN: MENSAJES PARA TARJETAS
+   ============================================ */
+
+.mensajes-tarjetas {
+    margin-top: 40px;
+    background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
+    padding: 30px 0;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: var(--text-color);
+    font-size: 1.1em;
+    margin-bottom: 20px;
+}
+
+/* Pestañas de Ocasiones */
+.ocasiones-tabs {
+    display: none;
+}
+
+.ocasiones-select2 {
+    display: block;
+    max-width: 400px;
+    margin: 0 auto 30px auto;
+}
+
+.ocasiones-select {
+    display: none;
+}
+
+.tab-btn {
+    background: var(--white);
+    border: 2px solid var(--light-gold);
+    padding: 12px 24px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    color: var(--text-color);
+    font-family: 'Montserrat', sans-serif;
+}
+
+.tab-btn:hover,
+.tab-btn.active {
+    background: linear-gradient(135deg, var(--primary-gold) 0%, var(--dark-gold) 100%);
+    border-color: var(--primary-gold);
+    color: var(--black);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+}
+
+/* Grid de Mensajes */
+.mensajes-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-width: 1200px;
+    margin: 0 auto 20px auto;
+    background: var(--white);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.mensaje-card {
+    background: var(--white);
+    border-radius: 0;
+    padding: 15px 20px;
+    box-shadow: none;
+    transition: all 0.3s ease;
+    border-left: 4px solid var(--light-gold);
+    border-bottom: 1px solid var(--gray);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    position: relative;
+    margin-bottom: 0;
+}
+
+.mensaje-card:hover {
+    background: var(--off-white);
+    border-left-color: var(--primary-gold);
+}
+
+/* Primera tarjeta sin borde superior redondeado */
+.mensaje-card:first-child {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+/* Última tarjeta sin borde inferior */
+.mensaje-card:last-child {
+    border-bottom: none;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.mensaje-titulo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1em;
+    color: var(--black);
+    margin: 0;
+    padding: 0;
+    border: none;
+    min-height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
+    width: 200px;
+    min-width: 200px;
+    flex-shrink: 0;
+}
+
+.mensaje-texto {
+    color: var(--text-color);
+    line-height: 1.5;
+    margin: 0;
+    font-size: 0.95em;
+    flex-grow: 1;
+    text-align: justify;
+}
+
+.mensaje-acciones {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    margin: 0;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.btn-copiar,
+.btn-whatsapp-msj {
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    font-size: 0.85em;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.btn-copiar {
+    background: var(--primary-gold);
+    color: var(--black);
+}
+
+.btn-copiar:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+}
+
+.btn-whatsapp-msj {
+    background: #25D366;
+    color: white;
+}
+
+.btn-whatsapp-msj:hover {
+    background: #128C7E;
+    transform: translateY(-2px);
+}
+
+/* Banner de Copiado */
+.copiar-mensaje-banner {
+    position: fixed;
+    bottom: 140px;
+    right: 20px;
+    background: var(--primary-gold);
+    color: var(--black);
+    padding: 15px 25px;
+    border-radius: 50px;
+    box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+    z-index: 1000;
+    animation: slideInUpBanner 0.5s ease;
+}
+
+@keyframes slideInUpBanner {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Paginación de Mensajes */
+.mensajes-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.mensajes-pagination button {
+    background: var(--white);
+    border: 2px solid var(--light-gold);
+    color: var(--text-color);
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    font-size: 0.95em;
+}
+
+.mensajes-pagination button:hover {
+    background: var(--primary-gold);
+    color: var(--black);
+    border-color: var(--primary-gold);
+    transform: translateY(-2px);
+}
+
+.mensajes-pagination button.active {
+    background: var(--primary-gold);
+    color: var(--black);
+    border-color: var(--primary-gold);
+}
+
+.mensajes-pagination button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.mensajes-pagination button:disabled:hover {
+    background: var(--white);
+    color: var(--text-color);
+    border-color: var(--light-gold);
+    transform: none;
+}
+
+/* Responsive para Mensajes */
+@media (max-width: 1200px) {
+    .mensaje-titulo {
+        width: 180px;
+        min-width: 180px;
+        font-size: 0.95em;
+    }
+    
+    .mensaje-texto {
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 900px) {
+    .mensaje-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        border-left: none;
+        border-bottom: 1px solid var(--gray);
+        border-top: 1px solid var(--gray);
+    }
+    
+    .mensaje-titulo {
+        width: 100% !important;
+        min-width: auto !important;
+        margin-bottom: 5px;
+        padding-bottom: 5px;
+        border-bottom: 1px solid var(--light-gold);
+        font-weight: bold;
+    }
+    
+    .mensaje-texto {
+        width: 100%;
+        text-align: justify;
+    }
+    
+    .mensaje-acciones {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .mensajes-grid {
+        gap: 0;
+        border-radius: 0;
+        border: 1px solid var(--gray);
+    }
+    
+    .mensaje-card {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 12px 15px;
+        gap: 10px;
+        border-left: 3px solid var(--primary-gold);
+        border-bottom: 1px solid var(--gray);
+        margin-bottom: 0;
+    }
+    
+    .mensaje-card:last-child {
+        border-bottom: 1px solid var(--gray);
+    }
+    
+    .mensaje-titulo {
+        width: 100% !important;
+        min-width: auto !important;
+        font-size: 1em;
+        font-weight: 700;
+        margin-bottom: 5px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid var(--primary-gold);
+        text-align: left;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--black);
+    }
+    
+    .mensaje-texto {
+        width: 100%;
+        font-size: 0.9em;
+        line-height: 1.6;
+        margin-bottom: 0;
+        color: var(--dark-gray);
+        text-align: justify;
+    }
+    
+    .mensaje-acciones {
+        width: 100%;
+        justify-content: flex-end;
+        margin-top: 8px;
+    }
+    
+    .btn-copiar {
+        padding: 10px 20px;
+        font-size: 0.9em;
+        width: 100%;
+    }
+
+    .ocasiones-select2 {
+        max-width: 100%;
+        margin: 0 auto 20px auto;
+    }
+
+    .tab-btn {
+        padding: 10px 18px;
+        font-size: 0.9em;
+    }
+
+    .btn-copiar {
+        padding: 6px 14px;
+        font-size: 0.85em;
+        width: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .mensajes-tarjetas {
+        padding: 0;
+        margin-top: 0;
+        padding-bottom: 20px;
+    }
+    
+    .mensajes-tarjetas .container {
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
+    .mensajes-grid {
+        gap: 0;
+        border-radius: 0;
+        border: 1px solid var(--gray);
+    }
+
+    .tab-btn {
+        padding: 8px 15px;
+        font-size: 0.85em;
+    }
+
+    .mensaje-card {
+        padding: 12px 12px;
+        gap: 8px;
+        border-left: 3px solid var(--primary-gold);
+        border-bottom: 1px solid var(--gray);
+        background: var(--white);
+    }
+    
+    .mensaje-card:last-child {
+        border-bottom: 1px solid var(--gray);
+    }
+
+    .mensaje-titulo {
+        width: 100% !important;
+        min-width: auto !important;
+        font-size: 0.95em;
+        font-weight: 700;
+        padding-bottom: 6px;
+        margin-bottom: 6px;
+        border-bottom: 2px solid var(--primary-gold);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .mensaje-texto {
+        font-size: 0.88em;
+        line-height: 1.5;
+        color: var(--dark-gray);
+        text-align: justify;
+    }
+
+    .mensaje-acciones {
+        width: 100%;
+        justify-content: center;
+        margin-top: 8px;
+    }
+
+    .btn-copiar {
+        padding: 10px 16px;
+        font-size: 0.85em;
+        width: 100%;
+    }
+
+    .mensajes-pagination {
+        justify-content: center;
+    }
+
+    .mensajes-pagination button {
+        padding: 8px 12px;
+        font-size: 0.9em;
+    }
+
+    .copiar-mensaje-banner {
+        bottom: 100px;
+        right: 15px;
+        padding: 12px 20px;
+        font-size: 0.9em;
+    }
+}
+
+/* ============================================
+   ESTILOS PARA SELECT2 - FILTRO DE CATEGORÍAS
+   ============================================ */
+
+/* Contenedor de los filtros en una fila */
+.filters-row-container {
+    display: flex;
+    gap: 20px;
+    margin: 20px auto 30px;
+    max-width: 1200px;
+}
+
+.filtros-categorias-container {
+    flex: 1;
+    margin: 0;
+    padding: 20px;
+    background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 2px solid var(--light-gold);
+}
+
+.filter-select-wrapper {
+    width: 100%;
+}
+
+.filter-select-wrapper label {
+    display: block;
+    margin-bottom: 12px;
+    font-size: 1.1em;
+    color: var(--text-color);
+    font-family: 'Playfair Display', serif;
+}
+
+/* Estilos del contenedor principal de Select2 */
+.select2-container {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.select2-container--default .select2-selection--multiple {
+    border: 2px solid var(--light-gold);
+    border-radius: 10px;
+    min-height: 50px;
+    padding: 5px;
+    background: var(--white);
+    transition: all 0.3s ease;
+}
+
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+    border-color: var(--primary-gold);
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+/* Placeholder del select */
+.select2-container--default .select2-selection--multiple .select2-selection__placeholder {
+    color: #999;
+    font-size: 0.95em;
+}
+
+/* Items seleccionados (chips/pills) */
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background: linear-gradient(135deg, var(--primary-gold) 0%, var(--dark-gold) 100%);
+    color: var(--white);
+    border: none;
+    border-radius: 6px;
+    padding: 4px 10px;
+    margin: 3px;
+    font-size: 0.9em;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice:hover {
+    background: linear-gradient(135deg, var(--dark-gold) 0%, var(--primary-gold) 100%);
+    transform: scale(1.05);
+}
+
+/* Botón de eliminar en los items seleccionados */
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    color: var(--white);
+    margin-right: 6px;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover {
+    color: var(--black);
+}
+
+/* Dropdown (lista desplegable) */
+.select2-container--default .select2-results__option {
+    padding: 10px 15px;
+    font-size: 0.95em;
+    transition: all 0.2s ease;
+}
+
+/* Opción resaltada/hover en el dropdown */
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background: linear-gradient(135deg, var(--primary-gold) 0%, var(--dark-gold) 100%);
+    color: var(--white);
+}
+
+/* Opción seleccionada */
+.select2-container--default .select2-results__option[aria-selected=true] {
+    background-color: var(--light-gold);
+    color: var(--text-color);
+}
+
+.select2-container--default .select2-results__option[aria-selected=true]:hover {
+    background: linear-gradient(135deg, var(--primary-gold) 0%, var(--dark-gold) 100%);
+    color: var(--white);
+}
+
+/* Campo de búsqueda dentro del dropdown */
+.select2-search--dropdown .select2-search__field {
+    border: 2px solid var(--light-gold);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 0.95em;
+    transition: all 0.3s ease;
+}
+
+.select2-search--dropdown .select2-search__field:focus {
+    border-color: var(--primary-gold);
+    outline: none;
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+}
+
+/* Dropdown container */
+.select2-dropdown {
+    border: 2px solid var(--primary-gold);
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    background: var(--white);
+}
+
+/* Mensaje de información de selección */
+.info-seleccion {
+    margin-top: 12px;
+    font-size: 0.9em;
+    color: #6c757d;
+    font-style: italic;
+    transition: all 0.3s ease;
+}
+
+.info-seleccion.active {
+    color: var(--dark-gold);
+    font-weight: 600;
+}
+
+/* Estilos específicos para el selector de precio */
+#priceSort + .select2-container {
+    width: 100% !important;
+}
+
+#priceSort + .select2-container .select2-selection--single {
+    border: 2px solid var(--light-gold);
+    border-radius: 10px;
+    min-height: 46px;
+    padding: 5px 10px;
+    background: var(--white);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+#priceSort + .select2-container--default.select2-container--focus .select2-selection--single {
+    border-color: var(--primary-gold);
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+#priceSort + .select2-container .select2-selection__rendered {
+    padding: 0;
+    line-height: normal;
+}
+
+#priceSort + .select2-container .select2-selection__arrow {
+    height: 100%;
+    right: 10px;
+}
+
+/* Estilos específicos para el selector de ocasiones de mensajes */
+#ocasiones-select2 + .select2-container {
+    width: 100% !important;
+}
+
+#ocasiones-select2 + .select2-container .select2-selection--multiple {
+    border: 2px solid var(--light-gold);
+    border-radius: 10px;
+    min-height: 46px;
+    padding: 5px;
+    background: var(--white);
+    transition: all 0.3s ease;
+}
+
+#ocasiones-select2 + .select2-container--default.select2-container--focus .select2-selection--multiple {
+    border-color: var(--primary-gold);
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+/* Ajustes responsivos para el select */
+@media (max-width: 768px) {
+    .filters-row-container {
+        flex-direction: column;
+        margin: 15px 10px 25px;
+        gap: 15px;
+    }
+
+    .filtros-categorias-container {
+        padding: 15px;
+        margin: 0;
+    }
+    
+    .filter-select-wrapper label {
+        font-size: 1em;
+    }
+    
+    .select2-container--default .select2-selection--multiple {
+        min-height: 45px;
+    }
+    
+    .select2-container--default .select2-selection--multiple .select2-selection__choice {
+        font-size: 0.85em;
+        padding: 3px 8px;
+    }
+
+    #priceSort + .select2-container {
+        max-width: 100%;
+        min-width: auto;
+        width: 100% !important;
+    }
+
+    #ocasiones-select2 + .select2-container {
+        max-width: 100%;
+        min-width: auto;
+        width: 100% !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .filters-row-container {
+        margin: 10px 5px 20px;
+        gap: 12px;
+    }
+
+    .filtros-categorias-container {
+        padding: 12px;
+        margin: 0;
+    }
+    
+    .filter-select-wrapper label {
+        font-size: 0.95em;
+        margin-bottom: 10px;
+    }
+    
+    .select2-container--default .select2-selection--multiple {
+        min-height: 42px;
+    }
+
+    #priceSort + .select2-container {
+        width: 100% !important;
+    }
+
+    #ocasiones-select2 + .select2-container {
+        width: 100% !important;
+    }
+}

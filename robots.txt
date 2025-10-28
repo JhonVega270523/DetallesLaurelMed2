@@ -1,0 +1,28 @@
+# ============================================
+# ROBOTS.TXT - Detalles Laurel Medellín
+# ============================================
+# Este archivo le dice a los motores de búsqueda (Google, Bing, etc.)
+# qué páginas pueden indexar y cuáles no.
+# ============================================
+
+User-agent: *
+Allow: /
+Allow: /images/
+Allow: /style.css
+Allow: /script.js
+Allow: /productos.js
+
+# Archivos que no queremos que indexen
+Disallow: /COMO_AGREGAR_PRODUCTOS.md
+Disallow: /RESUMEN_MEJORAS.md
+
+# Ubicación del sitemap (Dominio temporal - Actualizar cuando tengas dominio propio)
+Sitemap: https://jhonvega270523.github.io/DetallesLaurelMedLogo/sitemap.xml
+
+# ============================================
+# NOTAS:
+# - Cuando tengas dominio, actualiza la URL del Sitemap
+# - Este archivo debe estar en la raíz de tu sitio web
+# - Google lo leerá automáticamente
+# ============================================
+

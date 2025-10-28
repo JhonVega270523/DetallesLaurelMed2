@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ============================================
+     SITEMAP - Detalles Laurel Medellín
+     ============================================
+     Este archivo ayuda a Google a encontrar todas
+     las páginas de tu sitio web.
+     
+     IMPORTANTE: Cuando tengas dominio propio,
+     actualiza todas las URLs que dicen
+     "detalleslaurelmedellin.com" con tu dominio real.
+     ============================================ -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+    <!-- Página Principal -->
+    <url>
+        <loc>https://jhonvega270523.github.io/DetallesLaurelMedLogo/</loc>
+        <lastmod>2025-10-27</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
+
+    <!-- Sección Productos -->
+    <url>
+        <loc>https://jhonvega270523.github.io/DetallesLaurelMedLogo/#productos</loc>
+        <lastmod>2025-10-27</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <!-- Sección Categorías -->
+    <url>
+        <loc>https://jhonvega270523.github.io/DetallesLaurelMedLogo/#categorias-productos</loc>
+        <lastmod>2025-10-27</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Sección Sobre Nosotros -->
+    <url>
+        <loc>https://jhonvega270523.github.io/DetallesLaurelMedLogo/#nosotros</loc>
+        <lastmod>2025-10-27</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <!-- Sección Contacto -->
+    <url>
+        <loc>https://jhonvega270523.github.io/DetallesLaurelMedLogo/#contacto</loc>
+        <lastmod>2025-10-27</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+</urlset>
+
+<!-- ============================================
+     INSTRUCCIONES:
+     
+     1. Cuando tengas tu dominio, reemplaza todas las
+        URLs "detalleslaurelmedellin.com" con tu dominio real
+     
+     2. Actualiza la fecha <lastmod> cuando hagas cambios importantes
+        Formato: YYYY-MM-DD
+     
+     3. Prioridades:
+        - 1.0 = Página más importante (home)
+        - 0.8-0.9 = Muy importante
+        - 0.5-0.7 = Importante
+        - 0.1-0.4 = Menos importante
+     
+     4. Changefreq (frecuencia de cambios):
+        - daily = Cambia diariamente
+        - weekly = Cambia semanalmente
+        - monthly = Cambia mensualmente
+        - yearly = Cambia anualmente
+     
+     5. Para enviar a Google:
+        - Google Search Console
+        - Pega la URL de tu sitemap
+        - Google lo indexará automáticamente
+     ============================================ -->
+
