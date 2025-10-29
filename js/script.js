@@ -1352,6 +1352,138 @@ document.addEventListener('DOMContentLoaded', () => {
     if (floatingFavoritesBtn) {
         floatingFavoritesBtn.addEventListener('click', openFavoritesModal);
     }
+    
+    // Detectar cuando el usuario llega a la sección de productos
+    function setupProductsSectionObserver() {
+        const productsSection = document.getElementById('productos');
+        if (!productsSection) return;
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                // Si la sección está visible en la pantalla
+                if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
+                    // Verificar si ya se mostró la alerta en esta sesión
+                    const alertShown = sessionStorage.getItem('favoritesAlertShown');
+                    if (!alertShown) {
+                        showFavoritesInfoAlert();
+                        sessionStorage.setItem('favoritesAlertShown', 'true');
+                        // Dejar de observar después de mostrarla
+                        observer.unobserve(productsSection);
+                    }
+                }
+            });
+        }, {
+            threshold: 0.3, // Se activa cuando el 30% de la sección es visible
+            rootMargin: '0px'
+        });
+        
+        observer.observe(productsSection);
+    }
+    
+    // Función para mostrar alerta informativa sobre favoritos
+    function showFavoritesInfoAlert() {
+        // Crear y mostrar la alerta informativa
+        createFavoritesInfoAlert();
+    }
+    
+    // Crear y mostrar la alerta informativa
+    function createFavoritesInfoAlert() {
+        // Eliminar alerta anterior si existe
+        const existingAlert = document.getElementById('favoritesInfoAlert');
+        const existingOverlay = document.querySelector('.favorites-info-overlay');
+        if (existingAlert) {
+            existingAlert.remove();
+        }
+        if (existingOverlay) {
+            existingOverlay.remove();
+        }
+        
+        // Crear overlay de fondo
+        const overlay = document.createElement('div');
+        overlay.className = 'favorites-info-overlay';
+        
+        const alert = document.createElement('div');
+        alert.id = 'favoritesInfoAlert';
+        alert.className = 'favorites-info-alert';
+        
+        alert.innerHTML = `
+            <div class="favorites-info-alert-content">
+                <div class="favorites-info-icon">💡</div>
+                <div class="favorites-info-text">
+                    <strong>¿Cómo agregar favoritos?</strong>
+                    <p>Busca el corazón ♥️ en las tarjetas de productos y haz clic para guardar tus favoritos. ¡Así de fácil!</p>
+                    <p style="margin-top: 8px; font-size: 0.85em; color: #e74c3c;"><strong>💖 Para ver tus favoritos:</strong> Busca el botón flotante con el corazón en la esquina inferior derecha de la pantalla.</p>
+                </div>
+                <button class="favorites-info-close" aria-label="Cerrar">&times;</button>
+            </div>
+        `;
+        
+        // Agregar overlay y alerta al body
+        document.body.appendChild(overlay);
+        document.body.appendChild(alert);
+        
+        // Animación de entrada
+        setTimeout(() => {
+            overlay.classList.add('show');
+            alert.classList.add('show');
+        }, 100);
+        
+        // Cerrar al hacer clic en el botón de cerrar
+        const closeBtn = alert.querySelector('.favorites-info-close');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                closeFavoritesInfoAlert(overlay, alert);
+            });
+        }
+        
+        // Cerrar al hacer clic en el overlay (fondo oscuro)
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                closeFavoritesInfoAlert(overlay, alert);
+            }
+        });
+        
+        // Prevenir que los clics dentro de la alerta cierren el modal
+        const alertContent = alert.querySelector('.favorites-info-alert-content');
+        if (alertContent) {
+            alertContent.addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+        }
+        
+        // Cerrar automáticamente después de 15 segundos (más tiempo para leer)
+        setTimeout(() => {
+            if (alert.parentNode && overlay.parentNode) {
+                closeFavoritesInfoAlert(overlay, alert);
+            }
+        }, 15000);
+    }
+    
+    // Cerrar la alerta con animación
+    function closeFavoritesInfoAlert(overlay, alert) {
+        if (alert) {
+            alert.classList.remove('show');
+        }
+        if (overlay) {
+            overlay.classList.remove('show');
+        }
+        setTimeout(() => {
+            if (alert && alert.parentNode) {
+                alert.remove();
+            }
+            if (overlay && overlay.parentNode) {
+                overlay.remove();
+            }
+        }, 300);
+    }
+    
+    // Inicializar el observer cuando se carga la página
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', setupProductsSectionObserver);
+    } else {
+        setupProductsSectionObserver();
+    }
 
     // Cerrar modal de favoritos
     if (favoritesModal) {
