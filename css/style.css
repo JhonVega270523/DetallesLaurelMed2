@@ -918,7 +918,7 @@ h2::before {
     justify-content: center;
     align-items: center;
     position: fixed;
-    bottom: 80px;
+    bottom: 70px;
     right: 20px;
     z-index: 99;
     border: none;
@@ -1235,7 +1235,7 @@ h2::before {
     justify-content: center;
     align-items: center;
     position: fixed;
-    bottom: 20px;
+    bottom: 10px;
     right: 20px;
     z-index: 99;
     border: none;
@@ -1266,7 +1266,7 @@ h2::before {
 #scrollToTopBtn {
     display: none;
     position: fixed;
-    bottom: 140px;
+    bottom: 130px;
     right: 20px;
     z-index: 99;
     border: 2px solid var(--primary-gold);
@@ -1321,6 +1321,16 @@ footer {
 /* Ocultar saltos de línea en desktop */
 .mobile-br {
     display: none;
+}
+
+/* Ocultar texto móvil en desktop */
+.mobile-text {
+    display: none;
+}
+
+/* Mostrar texto desktop en desktop */
+.desktop-text {
+    display: inline;
 }
 
 .footer-content {
@@ -2561,6 +2571,15 @@ footer {
     /* Mostrar saltos de línea en móvil */
     .mobile-br {
         display: inline;
+    }
+    
+    /* Mostrar texto móvil y ocultar desktop en móvil */
+    .mobile-text {
+        display: inline;
+    }
+    
+    .desktop-text {
+        display: none;
     }
     
     /* Centrar textos en móvil */
