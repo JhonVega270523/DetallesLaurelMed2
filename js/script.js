@@ -226,7 +226,8 @@ function getSubcategoryTitle(subcategoryKey) {
     const subcategoryTitles = {
         'dama': 'Dama',
         'caballero': 'Caballero',
-        'ninos': 'Niños'
+        'ninos': 'Niños',
+        'grados': 'Grados'
     };
     return subcategoryTitles[subcategoryKey] || subcategoryKey;
 }
@@ -448,7 +449,16 @@ function updateSubcategoriesSelect(categoryKey) {
             const option = document.createElement('option');
             option.value = subcatKey;
             const subcatTitle = getSubcategoryTitle(subcatKey);
-            const emoji = subcatKey === 'dama' ? '👩' : subcatKey === 'caballero' ? '👨' : '👶';
+            let emoji = '';
+            if (subcatKey === 'dama') {
+                emoji = '👩';
+            } else if (subcatKey === 'caballero') {
+                emoji = '👨';
+            } else if (subcatKey === 'ninos') {
+                emoji = '👶';
+            } else if (subcatKey === 'grados') {
+                emoji = '🎓';
+            }
             option.textContent = `${emoji} ${subcatTitle}`;
             subcategoriesSelect.appendChild(option);
         });

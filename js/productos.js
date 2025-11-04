@@ -220,40 +220,52 @@ const PRODUCTOS_LAUREL = {
     ],
 
     // ============================================
-    // CATEGORÍA: BOUQUET
+    // CATEGORÍA: BOUQUET (con subcategorías)
     // ============================================
-    "bouquet": [
-        {
-            name: "Bouquet Clásico de Rosas",
-            price: "$85.000",
-            description: "12 rosas rojas frescas con follaje verde y envoltura elegante. El clásico que nunca falla.",
-            image: "images/Bouquet.jpeg"
+    "bouquet": {
+        hasSubcategories: true,
+        subcategories: {
+            "grados": [
+                {
+                    name: "Bouquet Clásico de Rosas",
+                    price: "$85.000",
+                    description: "12 rosas rojas frescas con follaje verde y envoltura elegante. El clásico que nunca falla.",
+                    image: "images/Bouquet.jpeg",
+                    subcategory: "grados"
+                },
+                {
+                    name: "Bouquet Mixto Primavera",
+                    price: "$95.000",
+                    description: "Combinación de rosas, girasoles, margaritas y flores de temporada en colores vibrantes.",
+                    image: "images/Bouquet.jpeg",
+                    subcategory: "grados"
+                },
+                {
+                    name: "Bouquet Premium Rosas Blancas",
+                    price: "$120.000",
+                    description: "24 rosas blancas premium con eucalipto y envoltura de lujo. Elegancia pura.",
+                    image: "images/Bouquet.jpeg",
+                    subcategory: "grados"
+                },
+                {
+                    name: "Bouquet Tropical",
+                    price: "$140.000",
+                    description: "Exóticas flores tropicales: aves del paraíso, heliconias y anturios en arreglo espectacular.",
+                    image: "images/Bouquet.jpeg",
+                    subcategory: "grados"
+                },
+                {
+                    name: "Bouquet Campestre",
+                    price: "$75.000",
+                    description: "Flores silvestres y de campo en estilo rústico. Natural y encantador.",
+                    image: "images/Bouquet.jpeg",
+                    subcategory: "grados"
+                }
+            ]
         },
-        {
-            name: "Bouquet Mixto Primavera",
-            price: "$95.000",
-            description: "Combinación de rosas, girasoles, margaritas y flores de temporada en colores vibrantes.",
-            image: "images/Bouquet.jpeg"
-        },
-        {
-            name: "Bouquet Premium Rosas Blancas",
-            price: "$120.000",
-            description: "24 rosas blancas premium con eucalipto y envoltura de lujo. Elegancia pura.",
-            image: "images/Bouquet.jpeg"
-        },
-        {
-            name: "Bouquet Tropical",
-            price: "$140.000",
-            description: "Exóticas flores tropicales: aves del paraíso, heliconias y anturios en arreglo espectacular.",
-            image: "images/Bouquet.jpeg"
-        },
-        {
-            name: "Bouquet Campestre",
-            price: "$75.000",
-            description: "Flores silvestres y de campo en estilo rústico. Natural y encantador.",
-            image: "images/Bouquet.jpeg"
-        }
-    ],
+        // Productos generales de bouquet (sin subcategoría específica)
+        general: []
+    },
 
     // ============================================
     // CATEGORÍA: CAJAS DE DULCES
@@ -388,46 +400,63 @@ const PRODUCTOS_LAUREL = {
     ],
 
     // ============================================
-    // CATEGORÍA: DESAYUNOS SORPRESA
+    // CATEGORÍA: DESAYUNOS SORPRESA (con subcategorías)
     // ============================================
-    "desayunos-sorpresa": [
-        {
-            name: "Desayuno Sorpresa Básico",
-            price: "$70.000",
-            description: "Café, jugo, sándwich, fruta, yogurt, galletas y tarjeta personalizada en bandeja decorada.",
-            image: "images/Desayunos Sorpresa.jpeg"
+    "desayunos-sorpresa": {
+        hasSubcategories: true,
+        subcategories: {
+            "dama": [
+                {
+                    name: "Desayuno Romántico",
+                    price: "$95.000",
+                    description: "Café gourmet, croissants, fresas con chocolate, jugo natural, rosa roja y tarjeta de amor.",
+                    image: "images/Desayunos Sorpresa.jpeg",
+                    subcategory: "dama"
+                },
+                {
+                    name: "Desayuno Premium",
+                    price: "$120.000",
+                    description: "Champagne, frutas exóticas, quesos, jamón, pan artesanal, jugos naturales, chocolates y flores.",
+                    image: "images/Desayunos Sorpresa.jpeg",
+                    subcategory: "dama"
+                },
+                {
+                    name: "Desayuno Saludable",
+                    price: "$85.000",
+                    description: "Smoothie bowl, frutas orgánicas, granola, pan integral, yogurt griego, miel y frutos secos.",
+                    image: "images/Desayunos Sorpresa.jpeg",
+                    subcategory: "dama"
+                }
+            ],
+            "caballero": [
+                {
+                    name: "Desayuno Ejecutivo",
+                    price: "$100.000",
+                    description: "Café premium, croissants, sándwich gourmet, frutas, jugo natural y periódico del día.",
+                    image: "images/Desayunos Sorpresa.jpeg",
+                    subcategory: "caballero"
+                },
+                {
+                    name: "Desayuno Sorpresa Básico",
+                    price: "$70.000",
+                    description: "Café, jugo, sándwich, fruta, yogurt, galletas y tarjeta personalizada en bandeja decorada.",
+                    image: "images/Desayunos Sorpresa.jpeg",
+                    subcategory: "caballero"
+                }
+            ],
+            "ninos": [
+                {
+                    name: "Desayuno Cumpleaños",
+                    price: "$110.000",
+                    description: "Desayuno completo con mini torta, globo de cumpleaños, café, jugos, frutas y sorpresa especial.",
+                    image: "images/Desayunos Sorpresa.jpeg",
+                    subcategory: "ninos"
+                }
+            ]
         },
-        {
-            name: "Desayuno Romántico",
-            price: "$95.000",
-            description: "Café gourmet, croissants, fresas con chocolate, jugo natural, rosa roja y tarjeta de amor.",
-            image: "images/Desayunos Sorpresa.jpeg"
-        },
-        {
-            name: "Desayuno Premium",
-            price: "$120.000",
-            description: "Champagne, frutas exóticas, quesos, jamón, pan artesanal, jugos naturales, chocolates y flores.",
-            image: "images/Desayunos Sorpresa.jpeg"
-        },
-        {
-            name: "Desayuno Saludable",
-            price: "$85.000",
-            description: "Smoothie bowl, frutas orgánicas, granola, pan integral, yogurt griego, miel y frutos secos.",
-            image: "images/Desayunos Sorpresa.jpeg"
-        },
-        {
-            name: "Desayuno Ejecutivo",
-            price: "$100.000",
-            description: "Café premium, croissants, sándwich gourmet, frutas, jugo natural y periódico del día.",
-            image: "images/Desayunos Sorpresa.jpeg"
-        },
-        {
-            name: "Desayuno Cumpleaños",
-            price: "$110.000",
-            description: "Desayuno completo con mini torta, globo de cumpleaños, café, jugos, frutas y sorpresa especial.",
-            image: "images/Desayunos Sorpresa.jpeg"
-        }
-    ],
+        // Productos generales de desayunos (sin subcategoría específica)
+        general: []
+    },
 
     // ============================================
     // CATEGORÍA: DETALLES CON VÍRGENES
