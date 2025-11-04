@@ -40,46 +40,124 @@ const PRODUCTOS_LAUREL = {
     ],
 
     // ============================================
-    // CATEGORÍA: ANCHETAS
+    // CATEGORÍA: ANCHETAS (con subcategorías)
     // ============================================
-    "anchetas": [
-        {
-            name: "Ancheta Gourmet Premium",
-            price: "$120.000",
-            description: "Selección premium con queso importado, jamón serrano, vino tinto, chocolates finos, galletas gourmet y frutos secos en presentación de lujo.",
-            image: "images/Anchetas.jpeg"
+    "anchetas": {
+        hasSubcategories: true,
+        subcategories: {
+            "dama": [
+                {
+                    name: "Ancheta Dama Elegante",
+                    price: "$120.000",
+                    description: "Selección especial para dama: chocolates finos, vino espumoso, productos de belleza, velas aromáticas y tarjeta personalizada.",
+                    image: "images/Anchetas.jpeg",
+                    subcategory: "dama"
+                },
+                {
+                    name: "Ancheta Dama Premium",
+                    price: "$150.000",
+                    description: "Ancheta de lujo para dama: perfumes, cosméticos premium, chocolates belgas, vino tinto y productos de spa.",
+                    image: "images/Anchetas.jpeg",
+                    subcategory: "dama"
+                },
+                {
+                    name: "Ancheta Dama Romántica",
+                    price: "$110.000",
+                    description: "Vino espumoso, chocolates finos, fresas cubiertas, velas aromáticas y productos de relajación para dama.",
+                    image: "images/Anchetas.jpeg",
+                    subcategory: "dama"
+                },
+                {
+                    name: "Ancheta Dama Gourmet",
+                    price: "$130.000",
+                    description: "Selección gourmet para dama: quesos finos, vino premium, chocolates artesanales y productos gourmet.",
+                    image: "images/Anchetas.jpeg",
+                    subcategory: "dama"
+                }
+            ],
+            "caballero": [
+                {
+                    name: "Ancheta Caballero Ejecutiva",
+                    price: "$140.000",
+                    description: "Ideal para caballeros: whisky, productos de cuidado personal, chocolates finos, frutos secos y accesorios.",
+                    image: "images/Anchetas.jpeg",
+                    subcategory: "caballero"
+                },
+                {
+                    name: "Ancheta Caballero Premium",
+                    price: "$160.000",
+                    description: "Ancheta de lujo para caballero: whisky premium, productos de cuidado masculino, chocolates finos y accesorios.",
+                    image: "images/Anchetas.jpeg",
+                    subcategory: "caballero"
+                },
+                {
+                    name: "Ancheta Caballero Deportiva",
+                    price: "$100.000",
+                    description: "Productos deportivos, bebidas energéticas, snacks saludables y accesorios para el caballero activo.",
+                    image: "images/Anchetas.jpeg",
+                    subcategory: "caballero"
+                },
+                {
+                    name: "Ancheta Caballero Gourmet",
+                    price: "$150.000",
+                    description: "Whisky, quesos finos, jamón serrano, frutos secos premium y productos gourmet para caballero.",
+                    image: "images/Anchetas.jpeg",
+                    subcategory: "caballero"
+                }
+            ],
+            "ninos": [
+                {
+                    name: "Ancheta Niños Fiesta",
+                    price: "$85.000",
+                    description: "Dulces variados, juguetes pequeños, globos, confites y sorpresas para los más pequeños.",
+                    image: "images/Anchetas.jpeg",
+                    subcategory: "ninos"
+                },
+                {
+                    name: "Ancheta Niños Educativa",
+                    price: "$95.000",
+                    description: "Juguetes educativos, libros, materiales creativos, dulces y productos para estimular el aprendizaje.",
+                    image: "images/Anchetas.jpeg",
+                    subcategory: "ninos"
+                },
+                {
+                    name: "Ancheta Niños Premium",
+                    price: "$110.000",
+                    description: "Juguetes de calidad, libros, dulces gourmet, accesorios y sorpresas especiales para niños.",
+                    image: "images/Anchetas.jpeg",
+                    subcategory: "ninos"
+                },
+                {
+                    name: "Ancheta Niños Cumpleaños",
+                    price: "$100.000",
+                    description: "Dulces, juguetes, globos temáticos, decoración y sorpresas para celebrar el cumpleaños.",
+                    image: "images/Anchetas.jpeg",
+                    subcategory: "ninos"
+                }
+            ]
         },
-        {
-            name: "Ancheta Dulce Sorpresa",
-            price: "$85.000",
-            description: "Para los amantes de lo dulce: chocolates variados, gomitas, galletas, brownies artesanales y dulces típicos colombianos.",
-            image: "images/Anchetas.jpeg"
-        },
-        {
-            name: "Ancheta Ejecutiva",
-            price: "$150.000",
-            description: "Ideal para empresas: whisky, queso, chocolates finos, frutos secos, galletas importadas y taza personalizable.",
-            image: "images/Anchetas.jpeg"
-        },
-        {
-            name: "Ancheta Saludable",
-            price: "$95.000",
-            description: "Opción saludable con frutas frescas, frutos secos, barras de granola, té premium, miel orgánica y snacks naturales.",
-            image: "images/Anchetas.jpeg"
-        },
-        {
-            name: "Ancheta Romántica",
-            price: "$110.000",
-            description: "Vino espumoso, chocolates belgas, fresas cubiertas, velas aromáticas y tarjeta personalizada para esa persona especial.",
-            image: "images/Anchetas.jpeg"
-        },
-        {
-            name: "Ancheta Baby Shower",
-            price: "$100.000",
-            description: "Productos para bebé: pañales, toallitas, cremas, baberos, juguete suave y tarjeta de felicitación.",
-            image: "images/Anchetas.jpeg"
-        }
-    ],
+        // Productos generales de anchetas (sin subcategoría específica)
+        general: [
+            {
+                name: "Ancheta Gourmet Premium",
+                price: "$120.000",
+                description: "Selección premium con queso importado, jamón serrano, vino tinto, chocolates finos, galletas gourmet y frutos secos en presentación de lujo.",
+                image: "images/Anchetas.jpeg"
+            },
+            {
+                name: "Ancheta Dulce Sorpresa",
+                price: "$85.000",
+                description: "Para los amantes de lo dulce: chocolates variados, gomitas, galletas, brownies artesanales y dulces típicos colombianos.",
+                image: "images/Anchetas.jpeg"
+            },
+            {
+                name: "Ancheta Ejecutiva",
+                price: "$150.000",
+                description: "Ideal para empresas: whisky, queso, chocolates finos, frutos secos, galletas importadas y taza personalizable.",
+                image: "images/Anchetas.jpeg"
+            }
+        ]
+    },
 
     // ============================================
     // CATEGORÍA: ANIVERSARIO

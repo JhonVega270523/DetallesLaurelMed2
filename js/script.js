@@ -167,13 +167,51 @@ function loadProductsFromDatabase() {
     if (typeof PRODUCTOS_LAUREL !== 'undefined') {
         // Copiar todos los productos desde PRODUCTOS_LAUREL a productsData
         Object.keys(PRODUCTOS_LAUREL).forEach(categoryKey => {
-            productsData[categoryKey] = PRODUCTOS_LAUREL[categoryKey].map(product => {
-                return {
-                    ...product,
-                    category: categoryKey,
-                    categoryTitle: categoryTitles.find(title => slugify(title) === categoryKey) || categoryKey
-                };
-            });
+            const categoryData = PRODUCTOS_LAUREL[categoryKey];
+            
+            // Verificar si la categoría tiene subcategorías
+            if (categoryData && typeof categoryData === 'object' && categoryData.hasSubcategories) {
+                // Categoría con subcategorías
+                let allProducts = [];
+                
+                // Agregar productos de cada subcategoría
+                if (categoryData.subcategories) {
+                    Object.keys(categoryData.subcategories).forEach(subcategoryKey => {
+                        const subcategoryProducts = categoryData.subcategories[subcategoryKey];
+                        subcategoryProducts.forEach(product => {
+                            allProducts.push({
+                                ...product,
+                                category: categoryKey,
+                                subcategory: subcategoryKey,
+                                categoryTitle: categoryTitles.find(title => slugify(title) === categoryKey) || categoryKey,
+                                subcategoryTitle: getSubcategoryTitle(subcategoryKey)
+                            });
+                        });
+                    });
+                }
+                
+                // Agregar productos generales si existen
+                if (categoryData.general && Array.isArray(categoryData.general)) {
+                    categoryData.general.forEach(product => {
+                        allProducts.push({
+                            ...product,
+                            category: categoryKey,
+                            categoryTitle: categoryTitles.find(title => slugify(title) === categoryKey) || categoryKey
+                        });
+                    });
+                }
+                
+                productsData[categoryKey] = allProducts;
+            } else if (Array.isArray(categoryData)) {
+                // Categoría normal (array de productos)
+                productsData[categoryKey] = categoryData.map(product => {
+                    return {
+                        ...product,
+                        category: categoryKey,
+                        categoryTitle: categoryTitles.find(title => slugify(title) === categoryKey) || categoryKey
+                    };
+                });
+            }
         });
         console.log('✅ Productos cargados exitosamente desde productos.js');
     } else {
@@ -181,6 +219,33 @@ function loadProductsFromDatabase() {
         // Generar productos de respaldo si no existe el archivo
         ensurePlaceholderProducts();
     }
+}
+
+// Función auxiliar para obtener el título de una subcategoría
+function getSubcategoryTitle(subcategoryKey) {
+    const subcategoryTitles = {
+        'dama': 'Dama',
+        'caballero': 'Caballero',
+        'ninos': 'Niños'
+    };
+    return subcategoryTitles[subcategoryKey] || subcategoryKey;
+}
+
+// Función para verificar si una categoría tiene subcategorías
+function hasSubcategories(categoryKey) {
+    if (typeof PRODUCTOS_LAUREL === 'undefined') return false;
+    const categoryData = PRODUCTOS_LAUREL[categoryKey];
+    return categoryData && typeof categoryData === 'object' && categoryData.hasSubcategories === true;
+}
+
+// Función para obtener las subcategorías de una categoría
+function getSubcategories(categoryKey) {
+    if (typeof PRODUCTOS_LAUREL === 'undefined') return [];
+    const categoryData = PRODUCTOS_LAUREL[categoryKey];
+    if (categoryData && categoryData.hasSubcategories && categoryData.subcategories) {
+        return Object.keys(categoryData.subcategories);
+    }
+    return [];
 }
 
 // Genera productos temporales para categorías que no existen aún (RESPALDO)
@@ -334,7 +399,7 @@ function updateDetailButtonLabels() {
 }
 
 // --- Funciones de Carga y Filtrado ---
-function getFilteredProducts(filter) {
+function getFilteredProducts(filter, subcategory = null) {
     if (filter === 'all') {
         let allProducts = [];
         for (const category in productsData) {
@@ -342,7 +407,97 @@ function getFilteredProducts(filter) {
         }
         return allProducts;
     } else {
-        return productsData[filter] || [];
+        let products = productsData[filter] || [];
+        
+        // Si se especifica una subcategoría, filtrar por ella
+        if (subcategory) {
+            products = products.filter(product => product.subcategory === subcategory);
+        }
+        
+        return products;
+    }
+}
+
+// Función para obtener productos de una subcategoría específica
+function getSubcategoryProducts(categoryKey, subcategoryKey) {
+    return getFilteredProducts(categoryKey, subcategoryKey);
+}
+
+// Función para actualizar el select2 de subcategorías
+function updateSubcategoriesSelect(categoryKey) {
+    const subcategoriesWrapper = document.getElementById('subcategoria-filtro-wrapper');
+    const subcategoriesSelect = document.getElementById('subcategoria-filtro');
+    
+    if (!subcategoriesWrapper || !subcategoriesSelect) return;
+    
+    // Verificar si la categoría tiene subcategorías
+    if (hasSubcategories(categoryKey)) {
+        const subcategories = getSubcategories(categoryKey);
+        
+        // Limpiar el select
+        subcategoriesSelect.innerHTML = '';
+        
+        // Agregar opción "Todas"
+        const todasOption = document.createElement('option');
+        todasOption.value = 'all';
+        todasOption.textContent = '📦 Todas';
+        subcategoriesSelect.appendChild(todasOption);
+        
+        // Agregar cada subcategoría
+        subcategories.forEach(subcatKey => {
+            const option = document.createElement('option');
+            option.value = subcatKey;
+            const subcatTitle = getSubcategoryTitle(subcatKey);
+            const emoji = subcatKey === 'dama' ? '👩' : subcatKey === 'caballero' ? '👨' : '👶';
+            option.textContent = `${emoji} ${subcatTitle}`;
+            subcategoriesSelect.appendChild(option);
+        });
+        
+        // Mostrar el contenedor
+        subcategoriesWrapper.style.display = 'block';
+        
+        // Inicializar o actualizar Select2
+        if (typeof jQuery !== 'undefined' && jQuery.fn.select2) {
+            jQuery(function($) {
+                // Si ya está inicializado, destruirlo primero
+                if ($(subcategoriesSelect).hasClass('select2-hidden-accessible')) {
+                    $(subcategoriesSelect).select2('destroy');
+                }
+                
+                // Inicializar Select2 (solo una selección)
+                $(subcategoriesSelect).select2({
+                    placeholder: "Seleccionar subcategoría...",
+                    allowClear: true,
+                    language: "es",
+                    width: '100%',
+                    closeOnSelect: true,
+                    minimumResultsForSearch: Infinity, // Deshabilitar búsqueda en subcategorías
+                    templateResult: function(option) {
+                        if (!option.id) return option.text;
+                        return $(option.element).text();
+                    },
+                    templateSelection: function(option) {
+                        if (!option.id) return option.text;
+                        return $(option.element).text();
+                    }
+                });
+                
+                // Limpiar selección inicial
+                $(subcategoriesSelect).val(null).trigger('change');
+            });
+        }
+    } else {
+        // Ocultar el contenedor si la categoría no tiene subcategorías
+        subcategoriesWrapper.style.display = 'none';
+        
+        // Destruir Select2 si está inicializado
+        if (typeof jQuery !== 'undefined' && jQuery.fn.select2) {
+            jQuery(function($) {
+                if ($(subcategoriesSelect).hasClass('select2-hidden-accessible')) {
+                    $(subcategoriesSelect).select2('destroy');
+                }
+            });
+        }
     }
 }
 
@@ -1691,7 +1846,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (typeof jQuery !== 'undefined' && jQuery.fn.select2) {
                     jQuery(document).ready(function($) {
                         // Limpiar selección anterior y seleccionar solo esta categoría
-                        $('#categoria-filtro').val([category]).trigger('change');
+                        $('#categoria-filtro').val(category).trigger('change');
                     });
                 } else {
                     // Fallback: usar el método tradicional si Select2 no está disponible
@@ -1729,13 +1884,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 return $(option.element).text();
             }
 
-            // Inicializar Select2 para categorías
+            // Inicializar Select2 para categorías (solo una selección)
             $('#categoria-filtro').select2({
-                placeholder: "Buscar o seleccionar categorías...",
+                placeholder: "Buscar o seleccionar categoría...",
                 allowClear: true,
                 language: "es",
                 width: '100%',
                 closeOnSelect: true,
+                minimumResultsForSearch: 0, // Permitir búsqueda
                 templateResult: formatOption,
                 templateSelection: formatOption
             });
@@ -1743,6 +1899,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Inicializar Select2 para ordenar por precio
             $('#priceSort').select2({
                 placeholder: "Seleccionar orden...",
+                allowClear: true, // Permitir limpiar la selección
                 language: "es",
                 width: 'resolve', // Ancho basado en el contenido
                 minimumResultsForSearch: Infinity, // Deshabilitar búsqueda
@@ -1750,56 +1907,158 @@ document.addEventListener('DOMContentLoaded', () => {
                 templateSelection: formatOption
             });
 
+            // Limpiar todos los filtros al cargar la página
+            $('#categoria-filtro').val(null).trigger('change');
+            $('#subcategoria-filtro').val(null).trigger('change');
+            $('#priceSort').val(null).trigger('change');
+            
+            // Ocultar el select de subcategorías
+            const subcategoriesWrapper = document.getElementById('subcategoria-filtro-wrapper');
+            if (subcategoriesWrapper) {
+                subcategoriesWrapper.style.display = 'none';
+            }
+            
+            // Actualizar mensaje de información
+            const infoElement = $('#info-seleccion');
+            infoElement.text('Mostrando todas las categorías');
+            infoElement.removeClass('active');
+
             // Evento cuando cambia el ordenamiento por precio
             $('#priceSort').on('change', function() {
-                const categoriasSeleccionadas = $('#categoria-filtro').val();
-                if (categoriasSeleccionadas && categoriasSeleccionadas.length > 0) {
-                    aplicarFiltroMultiple(categoriasSeleccionadas);
+                const categoriaSeleccionada = $('#categoria-filtro').val();
+                const sortValue = $(this).val();
+                
+                if (categoriaSeleccionada) {
+                    aplicarFiltroCategoria(categoriaSeleccionada);
                 } else {
                     loadAndFilterProducts('all', 1);
+                }
+                
+                // Cerrar el select después de limpiar
+                if (!sortValue || sortValue === '' || sortValue === null) {
+                    setTimeout(() => {
+                        $('#priceSort').select2('close');
+                    }, 10);
                 }
             });
 
             // Evento cuando cambia la selección del select de categorías
             $('#categoria-filtro').on('change', function() {
-                const categoriasSeleccionadas = $(this).val();
+                const categoriaSeleccionada = $(this).val();
                 const infoElement = $('#info-seleccion');
                 
-                if (categoriasSeleccionadas && categoriasSeleccionadas.length > 0) {
+                if (categoriaSeleccionada) {
                     // Actualizar mensaje de información
-                    infoElement.text(`${categoriasSeleccionadas.length} categoría(s) seleccionada(s)`);
+                    const categoriaTitle = categoryTitles.find(title => slugify(title) === categoriaSeleccionada) || categoriaSeleccionada;
+                    infoElement.text(`Categoría: ${categoriaTitle}`);
                     infoElement.addClass('active');
                     
-                    // Aplicar filtro con múltiples categorías
-                    aplicarFiltroMultiple(categoriasSeleccionadas);
+                    // Si la categoría tiene subcategorías, mostrar el select de subcategorías
+                    updateSubcategoriesSelect(categoriaSeleccionada);
+                    
+                    // Aplicar filtro de categoría
+                    aplicarFiltroCategoria(categoriaSeleccionada);
                 } else {
                     // Mostrar todos los productos
                     infoElement.text('Mostrando todas las categorías');
                     infoElement.removeClass('active');
+                    
+                    // Ocultar el select de subcategorías
+                    const subcategoriesWrapper = document.getElementById('subcategoria-filtro-wrapper');
+                    if (subcategoriesWrapper) {
+                        subcategoriesWrapper.style.display = 'none';
+                    }
+                    
                     loadAndFilterProducts('all');
+                }
+                
+                // Cerrar el select después de limpiar
+                if (!categoriaSeleccionada) {
+                    setTimeout(() => {
+                        $('#categoria-filtro').select2('close');
+                    }, 10);
+                }
+            });
+            
+            // Evento cuando cambia la selección del select de subcategorías
+            $(document).on('change', '#subcategoria-filtro', function() {
+                const categoriaSeleccionada = $('#categoria-filtro').val();
+                const subcategoriaSeleccionada = $(this).val();
+                
+                if (categoriaSeleccionada) {
+                    aplicarFiltroConSubcategorias(categoriaSeleccionada);
+                }
+                
+                // Cerrar el select después de limpiar
+                if (!subcategoriaSeleccionada) {
+                    setTimeout(() => {
+                        $('#subcategoria-filtro').select2('close');
+                    }, 10);
                 }
             });
 
-            // Función para aplicar filtro múltiple
-            window.aplicarFiltroMultiple = function(categorias) {
-                if (!categorias || categorias.length === 0) {
-                    loadAndFilterProducts('all');
-                    return;
+            // Función para aplicar filtro con subcategorías
+            window.aplicarFiltroConSubcategorias = function(categoryKey) {
+                const subcategoriaSeleccionada = $('#subcategoria-filtro').val();
+                let productosFiltrados = [];
+                
+                if (!subcategoriaSeleccionada || subcategoriaSeleccionada === 'all') {
+                    // Si no hay subcategoría seleccionada o se seleccionó "Todas", mostrar todos los productos de la categoría
+                    productosFiltrados = productsData[categoryKey] || [];
+                } else {
+                    // Filtrar por subcategoría seleccionada
+                    const productos = getSubcategoryProducts(categoryKey, subcategoriaSeleccionada);
+                    productosFiltrados = productosFiltrados.concat(productos);
                 }
-
-                // Obtener productos de todas las categorías seleccionadas
-                let todosLosProductosFiltrados = [];
-                categorias.forEach(categoria => {
-                    const productosDeCategoria = productsData[categoria] || [];
-                    todosLosProductosFiltrados = todosLosProductosFiltrados.concat(productosDeCategoria);
-                });
-
+                
                 // Aplicar orden por precio si corresponde
                 const sortSelect = document.getElementById('priceSort');
                 if (sortSelect) {
                     const sortValue = sortSelect.value;
                     if (sortValue === 'asc' || sortValue === 'desc') {
-                        todosLosProductosFiltrados = todosLosProductosFiltrados.sort((a, b) => {
+                        productosFiltrados = productosFiltrados.sort((a, b) => {
+                            const priceA = parseInt(String(a.price || '0').replace(/\D/g, '')) || 0;
+                            const priceB = parseInt(String(b.price || '0').replace(/\D/g, '')) || 0;
+                            return sortValue === 'asc' ? priceA - priceB : priceB - priceA;
+                        });
+                    }
+                }
+                
+                // Resetear a página 1
+                currentPage = 1;
+                currentCategory = categoryKey;
+                
+                // Mostrar productos filtrados
+                displayProducts(productosFiltrados, currentPage);
+                setupPagination(productosFiltrados, categoryKey);
+            };
+
+            // Función para aplicar filtro de categoría
+            window.aplicarFiltroCategoria = function(categoria) {
+                if (!categoria) {
+                    loadAndFilterProducts('all');
+                    return;
+                }
+
+                // Verificar si hay subcategoría seleccionada
+                const subcategoriaSeleccionada = $('#subcategoria-filtro').val();
+                
+                // Si hay subcategoría seleccionada y no es "Todas", usar la función de subcategorías
+                if (subcategoriaSeleccionada && subcategoriaSeleccionada !== 'all') {
+                    aplicarFiltroConSubcategorias(categoria);
+                    return;
+                }
+
+                // Obtener productos de la categoría
+                const productosDeCategoria = productsData[categoria] || [];
+
+                // Aplicar orden por precio si corresponde
+                const sortSelect = document.getElementById('priceSort');
+                let productosFinales = productosDeCategoria;
+                if (sortSelect) {
+                    const sortValue = sortSelect.value;
+                    if (sortValue === 'asc' || sortValue === 'desc') {
+                        productosFinales = productosFinales.sort((a, b) => {
                             const priceA = parseInt(String(a.price || '0').replace(/\D/g, '')) || 0;
                             const priceB = parseInt(String(b.price || '0').replace(/\D/g, '')) || 0;
                             return sortValue === 'asc' ? priceA - priceB : priceB - priceA;
@@ -1809,27 +2068,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Resetear a página 1
                 currentPage = 1;
-                currentCategory = 'multiple';
+                currentCategory = categoria;
                 
                 // Mostrar productos filtrados
-                displayProducts(todosLosProductosFiltrados, currentPage);
-                setupPagination(todosLosProductosFiltrados, 'multiple');
-                
-                // Hacer scroll a la sección de productos
-                setTimeout(() => {
-                    const productsSection = document.querySelector('.products');
-                    if (productsSection) {
-                        productsSection.scrollIntoView({ 
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                }, 50);
+                displayProducts(productosFinales, currentPage);
+                setupPagination(productosFinales, categoria);
             };
 
             // Función para limpiar selección
             window.limpiarFiltros = function() {
                 $('#categoria-filtro').val(null).trigger('change');
+                $('#subcategoria-filtro').val(null).trigger('change');
             };
         });
     }

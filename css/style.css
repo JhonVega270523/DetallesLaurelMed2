@@ -1805,6 +1805,200 @@ footer {
 }
 
 /* ============================================
+   MODAL DE SUBCATEGORÍAS
+   ============================================ */
+
+.subcategories-modal {
+    display: none;
+    position: fixed;
+    z-index: 2500;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.subcategories-modal.active {
+    display: flex;
+}
+
+.subcategories-modal-content {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 248, 248, 0.98) 100%);
+    padding: 30px;
+    border-radius: 20px;
+    max-width: 600px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+    border: 3px solid var(--primary-gold);
+    animation: scaleIn 0.5s ease;
+}
+
+.subcategories-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--primary-gold);
+}
+
+.subcategories-modal-header h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--black);
+    margin: 0;
+    font-size: 2em;
+}
+
+.subcategories-close-button {
+    position: relative;
+    color: var(--dark-gray);
+    font-size: 32px;
+    font-weight: bold;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.05);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.subcategories-close-button:hover {
+    background: var(--primary-gold);
+    color: var(--white);
+    transform: rotate(90deg);
+    border-color: var(--dark-gold);
+}
+
+.subcategories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.subcategory-card {
+    background: linear-gradient(135deg, var(--white) 0%, var(--off-white) 100%);
+    border: 2px solid var(--primary-gold);
+    border-radius: 15px;
+    padding: 25px 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 150px;
+}
+
+.subcategory-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+    border-color: var(--dark-gold);
+    background: linear-gradient(135deg, var(--light-gold) 0%, var(--white) 100%);
+}
+
+.subcategory-icon {
+    font-size: 3em;
+    margin-bottom: 10px;
+    transition: transform 0.3s ease;
+}
+
+.subcategory-card:hover .subcategory-icon {
+    transform: scale(1.1);
+}
+
+.subcategory-card h3 {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--dark-gray);
+    margin: 0;
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .subcategories-modal-content {
+        padding: 20px;
+        max-width: 90%;
+    }
+
+    .subcategories-modal-header h2 {
+        font-size: 1.5em;
+    }
+
+    .subcategories-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .subcategory-card {
+        min-height: 120px;
+        padding: 20px 10px;
+    }
+
+    .subcategory-icon {
+        font-size: 2.5em;
+    }
+
+    .subcategory-card h3 {
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    .subcategories-modal-content {
+        padding: 15px;
+        width: 95%;
+    }
+
+    .subcategories-modal-header {
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+    }
+
+    .subcategories-modal-header h2 {
+        font-size: 1.3em;
+    }
+
+    .subcategories-close-button {
+        width: 35px;
+        height: 35px;
+        font-size: 28px;
+    }
+
+    .subcategories-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .subcategory-card {
+        min-height: 100px;
+        padding: 15px;
+    }
+
+    .subcategory-icon {
+        font-size: 2em;
+        margin-bottom: 8px;
+    }
+
+    .subcategory-card h3 {
+        font-size: 0.95em;
+    }
+}
+
+/* ============================================
    MODAL DE BIENVENIDA
    ============================================ */
 
@@ -4271,13 +4465,60 @@ footer {
 }
 
 #priceSort + .select2-container .select2-selection__rendered {
-    padding: 0;
+    padding: 0 30px 0 0; /* Padding derecho para espacio del botón clear y la flecha */
     line-height: normal;
 }
 
 #priceSort + .select2-container .select2-selection__arrow {
     height: 100%;
     right: 10px;
+}
+
+/* Estilos uniformes para el botón clear (X) en todos los Select2 de tipo single */
+.select2-container--default .select2-selection--single .select2-selection__clear {
+    font-size: 1.2em !important;
+    font-weight: bold !important;
+    color: #999 !important;
+    margin-right: 8px !important;
+    cursor: pointer !important;
+    line-height: 1 !important;
+    transition: color 0.2s ease !important;
+    height: 20px !important;
+    width: 20px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__clear:hover {
+    color: #333 !important;
+}
+
+/* Asegurar que el botón clear esté posicionado correctamente en todos los Select2 */
+#categoria-filtro + .select2-container .select2-selection__clear,
+#subcategoria-filtro + .select2-container .select2-selection__clear,
+#priceSort + .select2-container .select2-selection__clear {
+    font-size: 1.2em !important;
+    font-weight: bold !important;
+    color: #999 !important;
+    margin-right: 8px !important;
+    cursor: pointer !important;
+    line-height: 1 !important;
+    transition: color 0.2s ease !important;
+    height: 20px !important;
+    width: 20px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+    top: 0 !important;
+    right: 0 !important;
+}
+
+#categoria-filtro + .select2-container .select2-selection__clear:hover,
+#subcategoria-filtro + .select2-container .select2-selection__clear:hover,
+#priceSort + .select2-container .select2-selection__clear:hover {
+    color: #333 !important;
 }
 
 /* Estilos específicos para el selector de ocasiones de mensajes */

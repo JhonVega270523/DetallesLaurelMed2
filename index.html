@@ -521,7 +521,7 @@
                 <div class="filtros-categorias-container">
                     <div class="filter-select-wrapper">
                         <label for="categoria-filtro"><strong>Filtrar por Categorías:</strong></label>
-                        <select id="categoria-filtro" multiple="multiple">
+                        <select id="categoria-filtro">
                             <option value="15-anos">🎉 15 años</option>
                             <option value="anchetas">🎁 Anchetas</option>
                             <option value="aniversario">💑 Aniversario</option>
@@ -546,12 +546,19 @@
                             Mostrando todas las categorías
                         </div>
                     </div>
+                    <!-- Contenedor para el select2 de subcategorías (aparece dinámicamente) -->
+                    <div class="filter-select-wrapper" id="subcategoria-filtro-wrapper" style="display: none;">
+                        <label for="subcategoria-filtro"><strong>Filtrar por Subcategorías:</strong></label>
+                        <select id="subcategoria-filtro">
+                            <!-- Las opciones se cargarán dinámicamente -->
+                        </select>
+                    </div>
                 </div>
                 <div class="filtros-categorias-container">
                     <div class="filter-select-wrapper">
                         <label for="priceSort"><strong>Ordenar por precio:</strong></label>
                         <select id="priceSort">
-                            <option value="none">Sin orden</option>
+                            <option value=""></option>
                             <option value="asc">💰 Menor a mayor</option>
                             <option value="desc">💎 Mayor a menor</option>
                         </select>
