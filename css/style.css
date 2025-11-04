@@ -3902,6 +3902,95 @@ footer {
 }
 
 /* ============================================
+   CINTILLA DE LOGO ANIMADA
+   ============================================ */
+
+.logo-banner-section {
+    width: 100%;
+    overflow: hidden;
+    background: var(--black);
+    padding: 15px 0;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.logo-banner-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.logo-banner-track {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    width: fit-content;
+    animation: scrollLogo 30s linear infinite;
+    will-change: transform;
+}
+
+.logo-banner-item {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-banner-item img {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+    opacity: 0.9;
+    transition: opacity 0.3s ease;
+}
+
+.logo-banner-item:hover img {
+    opacity: 1;
+}
+
+/* Animación de scroll infinito */
+@keyframes scrollLogo {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* Responsive para la cintilla */
+@media (max-width: 768px) {
+    .logo-banner-section {
+        padding: 12px 0;
+    }
+    
+    .logo-banner-item img {
+        height: 32px;
+    }
+    
+    .logo-banner-track {
+        gap: 30px;
+        animation-duration: 25s;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-banner-section {
+        padding: 10px 0;
+    }
+    
+    .logo-banner-item img {
+        height: 28px;
+    }
+    
+    .logo-banner-track {
+        gap: 25px;
+        animation-duration: 20s;
+    }
+}
+
+/* ============================================
    SECCIÓN: MENSAJES PARA TARJETAS
    ============================================ */
 
