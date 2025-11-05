@@ -566,6 +566,8 @@ function displayProducts(products, page) {
         waBtn.className = 'whatsapp-icon-btn';
         waBtn.setAttribute('data-name', product.name);
         waBtn.setAttribute('data-price', product.price);
+        waBtn.setAttribute('data-category', product.categoryTitle || product.category || '');
+        waBtn.setAttribute('data-subcategory', product.subcategoryTitle || product.subcategory || '');
         const waImg = document.createElement('img');
         waImg.src = 'https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg';
         waImg.alt = 'WhatsApp Icon';
@@ -778,10 +780,9 @@ function handleImageClick() {
 function handleWhatsAppClick() {
     const productName = this.dataset.name;
     const productPrice = this.dataset.price;
-    // En las tarjetas, también podemos obtener la categoría del producto
-    const productCard = this.closest('.product-card');
-    const productCategory = productCard ? productCard.dataset.category : null;
-    sendToWhatsApp(productName, productPrice, null, productCategory);
+    const productCategory = this.dataset.category || null;
+    const productSubcategory = this.dataset.subcategory || null;
+    sendToWhatsApp(productName, productPrice, null, productCategory, productSubcategory);
 }
 
 function handleDetailClick() {
@@ -795,7 +796,7 @@ function handleDetailClick() {
 }
 
 // Función mejorada para enviar mensajes a WhatsApp con más información del producto
-function sendToWhatsApp(productName, productPrice, productImage = null, productCategory = null) {
+function sendToWhatsApp(productName, productPrice, productImage = null, productCategory = null, productSubcategory = null) {
     // Mensaje más completo y profesional
     let message = `¡Hola! 👋\n\nEstoy interesado/a en el siguiente producto de Detalles Laurel Medellín:\n\n`;
     message += `🌸 *${productName}*\n`;
@@ -804,6 +805,11 @@ function sendToWhatsApp(productName, productPrice, productImage = null, productC
     // Agregar categoría si está disponible
     if (productCategory) {
         message += `🏷️ Categoría: ${productCategory}\n`;
+    }
+    
+    // Agregar subcategoría si está disponible
+    if (productSubcategory) {
+        message += `📂 Subcategoría: ${productSubcategory}\n`;
     }
     
     message += `\n💬 Por favor, brindame más información sobre:\n`;
@@ -839,6 +845,7 @@ function openProductDetailModal(product) {
     modalDetailWhatsappBtn.setAttribute('data-price', product.price);
     modalDetailWhatsappBtn.setAttribute('data-image', product.image);
     modalDetailWhatsappBtn.setAttribute('data-category', product.categoryTitle || product.category || '');
+    modalDetailWhatsappBtn.setAttribute('data-subcategory', product.subcategoryTitle || product.subcategory || '');
 
     productDetailModal.style.display = "flex"; 
 }
@@ -1211,25 +1218,41 @@ function handleFormSubmit(event) {
 function showFormMessage(message, type) {
     // Remover mensaje anterior si existe
     const existingMessage = document.querySelector('.form-message');
+    const existingOverlay = document.querySelector('.form-message-overlay');
     if (existingMessage) {
         existingMessage.remove();
     }
+    if (existingOverlay) {
+        existingOverlay.remove();
+    }
+    
+    // Crear overlay de fondo
+    const overlay = document.createElement('div');
+    overlay.className = 'form-message-overlay';
     
     // Crear el elemento del mensaje
     const messageElement = document.createElement('div');
     messageElement.className = `form-message form-message-${type}`;
     messageElement.textContent = message;
     
-    // Insertar el mensaje después del formulario
-    const form = document.querySelector('.contact-form');
-    form.parentNode.insertBefore(messageElement, form.nextSibling);
+    // Agregar el mensaje al overlay
+    overlay.appendChild(messageElement);
     
-    // Remover el mensaje después de 5 segundos
+    // Agregar el overlay al body
+    document.body.appendChild(overlay);
+    
+    // Remover el mensaje después de 3 segundos
     setTimeout(() => {
-        if (messageElement.parentNode) {
-            messageElement.remove();
+        if (overlay.parentNode) {
+            overlay.style.opacity = '0';
+            overlay.style.transition = 'opacity 0.3s ease-out';
+            setTimeout(() => {
+                if (overlay.parentNode) {
+                    overlay.remove();
+                }
+            }, 300);
         }
-    }, 5000);
+    }, 3000);
 }
 
 // --- Funcionalidad de Animación de Escritura ---
@@ -1501,12 +1524,25 @@ document.addEventListener('DOMContentLoaded', () => {
         window.onscroll = function() { scrollFunction() };
     }
 
+    // Mensaje genérico para WhatsApp (botón flotante y sección contacto)
+    const genericWhatsAppMessage = "¡Hola! 👋\n\nEstoy interesado/a en adquirir alguno de los productos de Detalles Laurel Medellín.\n\n💬 Me gustaría obtener más información sobre:\n• Productos disponibles\n• Precios\n• Tiempos de entrega\n• Opciones de personalización\n\n¡Gracias! 🙏\n\n_Detalles Laurel Medellín_";
+
     // Botón flotante de WhatsApp
     const floatingWhatsAppBtn = document.getElementById("floatingWhatsAppBtn");
     if (floatingWhatsAppBtn) {
-        floatingWhatsAppBtn.addEventListener('click', function() {
-            const message = "¡Hola! Me interesa obtener más información de Detalles Laurel Medellín.";
-            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+        floatingWhatsAppBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(genericWhatsAppMessage)}`;
+            window.open(whatsappUrl, '_blank');
+        });
+    }
+
+    // Botón "Escribenos" de la sección contacto
+    const contactWhatsAppBtn = document.querySelector('.whatsapp-button');
+    if (contactWhatsAppBtn) {
+        contactWhatsAppBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(genericWhatsAppMessage)}`;
             window.open(whatsappUrl, '_blank');
         });
     }
@@ -1708,9 +1744,10 @@ document.addEventListener('DOMContentLoaded', () => {
         modalDetailWhatsappBtn.addEventListener('click', function() {
             const productName = this.dataset.name;
             const productPrice = this.dataset.price;
-            const productImage = this.dataset.image;
-            const productCategory = this.dataset.category;
-            sendToWhatsApp(productName, productPrice, productImage, productCategory);
+            const productCategory = this.dataset.category || null;
+            const productSubcategory = this.dataset.subcategory || null;
+            // Usar la misma función que las tarjetas para garantizar mensaje idéntico
+            sendToWhatsApp(productName, productPrice, null, productCategory, productSubcategory);
         });
     }
 
