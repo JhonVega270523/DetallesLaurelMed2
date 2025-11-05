@@ -4925,25 +4925,27 @@ footer {
 #ocasiones-select2 + .select2-container .select2-selection--multiple .select2-selection__placeholder {
     color: #999 !important;
     font-size: 1em !important;
-    line-height: normal !important;
+    line-height: 1.5 !important;
     padding: 0 !important;
     margin: 0 !important;
     cursor: pointer !important;
     white-space: nowrap !important;
     overflow: visible !important;
     text-overflow: clip !important;
-    display: block !important;
+    display: inline-block !important;
     max-width: calc(100% - 55px) !important;
     word-break: keep-all !important;
     box-sizing: border-box !important;
+    vertical-align: middle !important;
 }
 
 /* Ajustar el contenedor de selección para que se vea igual */
 #ocasiones-select2 + .select2-container .select2-selection__rendered {
     padding: 0 55px 0 10px;
-    line-height: normal;
+    line-height: 1.5;
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     flex-wrap: wrap;
     gap: 3px;
     width: 100%;
@@ -4951,6 +4953,7 @@ footer {
     min-width: 0; /* Permitir que se ajuste al contenedor */
     overflow: visible; /* Permitir que el placeholder se vea completo */
     box-sizing: border-box;
+    min-height: 36px; /* Asegurar altura mínima para centrado vertical */
 }
 
 /* Ajustar el contenedor de choices para que no afecte el placeholder vacío */
