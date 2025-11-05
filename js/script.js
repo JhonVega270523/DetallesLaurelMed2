@@ -1178,12 +1178,18 @@ function topFunction() {
 function handleFormSubmit(event) {
     event.preventDefault();
     
+    // Validar antes de enviar
+    if (!validateForm(event.target)) {
+        return;
+    }
+    
     const formData = new FormData(event.target);
     const submitButton = event.target.querySelector('.submit-button');
-    const originalButtonText = submitButton.textContent;
+    const submitText = submitButton.querySelector('.submit-text');
+    const originalButtonText = submitText.textContent;
     
     // Cambiar el texto del botón para mostrar que se está enviando
-    submitButton.textContent = 'Enviando...';
+    submitText.textContent = 'Enviando...';
     submitButton.disabled = true;
     
     // Enviar el formulario usando fetch
@@ -1200,6 +1206,10 @@ function handleFormSubmit(event) {
             showFormMessage('¡Mensaje enviado exitosamente! Te responderemos pronto.', 'success');
             // Resetear el formulario
             event.target.reset();
+            // Resetear contador de caracteres
+            updateCharCount();
+            // Limpiar errores
+            clearAllErrors();
         } else {
             throw new Error('Error en el envío');
         }
@@ -1210,9 +1220,168 @@ function handleFormSubmit(event) {
     })
     .finally(() => {
         // Restaurar el botón
-        submitButton.textContent = originalButtonText;
+        submitText.textContent = originalButtonText;
         submitButton.disabled = false;
     });
+}
+
+// Función para validar el formulario
+function validateForm(form) {
+    let isValid = true;
+    const name = form.querySelector('#name');
+    const number = form.querySelector('#number');
+    const message = form.querySelector('#message');
+    
+    // Validar nombre
+    if (!name.value.trim() || name.value.trim().length < 2) {
+        showError('name-error', 'El nombre debe tener al menos 2 caracteres');
+        isValid = false;
+    } else {
+        clearError('name-error');
+    }
+    
+    // Validar teléfono
+    const phoneRegex = /^[\d\s\+\-\(\)]+$/;
+    if (!number.value.trim() || !phoneRegex.test(number.value) || number.value.trim().length < 7) {
+        showError('number-error', 'Por favor ingresa un número de teléfono válido');
+        isValid = false;
+    } else {
+        clearError('number-error');
+    }
+    
+    // Validar mensaje
+    if (!message.value.trim() || message.value.trim().length < 10) {
+        showError('message-error', 'El mensaje debe tener al menos 10 caracteres');
+        isValid = false;
+    } else if (message.value.trim().length > 500) {
+        showError('message-error', 'El mensaje no puede exceder 500 caracteres');
+        isValid = false;
+    } else {
+        clearError('message-error');
+    }
+    
+    return isValid;
+}
+
+// Función para mostrar error
+function showError(errorId, message) {
+    const errorElement = document.getElementById(errorId);
+    if (errorElement) {
+        errorElement.textContent = message;
+        errorElement.classList.add('show');
+    }
+}
+
+// Función para limpiar error
+function clearError(errorId) {
+    const errorElement = document.getElementById(errorId);
+    if (errorElement) {
+        errorElement.textContent = '';
+        errorElement.classList.remove('show');
+    }
+}
+
+// Función para limpiar todos los errores
+function clearAllErrors() {
+    const errorElements = document.querySelectorAll('.form-error');
+    errorElements.forEach(error => {
+        error.textContent = '';
+        error.classList.remove('show');
+    });
+}
+
+// Función para actualizar contador de caracteres
+function updateCharCount() {
+    const message = document.getElementById('message');
+    const charCount = document.getElementById('char-count');
+    const charCountContainer = document.querySelector('.form-char-count');
+    
+    if (message && charCount && charCountContainer) {
+        const length = message.value.length;
+        charCount.textContent = length;
+        
+        // Cambiar color según la cantidad de caracteres
+        charCountContainer.classList.remove('warning', 'error');
+        if (length > 450) {
+            charCountContainer.classList.add('error');
+        } else if (length > 400) {
+            charCountContainer.classList.add('warning');
+        }
+    }
+}
+
+// Inicializar validación en tiempo real
+function initFormValidation() {
+    const form = document.getElementById('contactForm');
+    if (!form) return;
+    
+    const name = form.querySelector('#name');
+    const number = form.querySelector('#number');
+    const message = form.querySelector('#message');
+    
+    // Validación en tiempo real para nombre
+    if (name) {
+        name.addEventListener('blur', function() {
+            if (!this.value.trim() || this.value.trim().length < 2) {
+                showError('name-error', 'El nombre debe tener al menos 2 caracteres');
+            } else {
+                clearError('name-error');
+            }
+        });
+        
+        name.addEventListener('input', function() {
+            if (this.value.trim().length >= 2) {
+                clearError('name-error');
+            }
+        });
+    }
+    
+    // Validación en tiempo real para teléfono
+    if (number) {
+        const phoneRegex = /^[\d\s\+\-\(\)]+$/;
+        number.addEventListener('blur', function() {
+            if (!this.value.trim() || !phoneRegex.test(this.value) || this.value.trim().length < 7) {
+                showError('number-error', 'Por favor ingresa un número de teléfono válido');
+            } else {
+                clearError('number-error');
+            }
+        });
+        
+        number.addEventListener('input', function() {
+            if (phoneRegex.test(this.value) && this.value.trim().length >= 7) {
+                clearError('number-error');
+            }
+        });
+    }
+    
+    // Validación y contador para mensaje
+    if (message) {
+        message.addEventListener('input', function() {
+            updateCharCount();
+            const length = this.value.trim().length;
+            if (length > 0 && length < 10) {
+                showError('message-error', 'El mensaje debe tener al menos 10 caracteres');
+            } else if (length > 500) {
+                showError('message-error', 'El mensaje no puede exceder 500 caracteres');
+            } else {
+                clearError('message-error');
+            }
+        });
+        
+        message.addEventListener('blur', function() {
+            const length = this.value.trim().length;
+            if (length > 0 && length < 10) {
+                showError('message-error', 'El mensaje debe tener al menos 10 caracteres');
+            } else if (length > 500) {
+                showError('message-error', 'El mensaje no puede exceder 500 caracteres');
+            } else {
+                clearError('message-error');
+            }
+        });
+        
+        // Inicializar contador
+        updateCharCount();
+    }
 }
 
 function showFormMessage(message, type) {
@@ -1705,6 +1874,8 @@ document.addEventListener('DOMContentLoaded', () => {
     contactForm = document.querySelector('.contact-form');
     if (contactForm) {
         contactForm.addEventListener('submit', handleFormSubmit);
+        // Inicializar validación en tiempo real
+        initFormValidation();
     }
 
     // Animación de escritura del título
