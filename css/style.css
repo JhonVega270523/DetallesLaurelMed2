@@ -4018,6 +4018,40 @@ footer {
     margin: 0 auto 30px auto;
 }
 
+/* En escritorio: label y dropdown en la misma línea para ocasiones y ocupar 6 columnas */
+@media (min-width: 769px) {
+    .ocasiones-select2 {
+        width: 50%; /* 6/12 = 50% */
+        max-width: 600px; /* Máximo basado en 6/12 de 1200px */
+        margin: 0 auto 30px auto;
+        min-width: 400px; /* Ancho mínimo para que el placeholder se vea completo */
+    }
+
+    .ocasiones-select2 .filter-select-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .ocasiones-select2 .filter-select-wrapper label {
+        display: inline-block;
+        margin-bottom: 0;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .ocasiones-select2 .filter-select-wrapper select,
+    .ocasiones-select2 .filter-select-wrapper .select2-container {
+        flex: 1;
+        min-width: 300px; /* Ancho mínimo para que el placeholder se vea completo */
+    }
+
+    .ocasiones-select2 .filter-select-wrapper .select2-container {
+        width: 100% !important;
+    }
+}
+
 .ocasiones-select {
     display: none;
 }
@@ -4326,7 +4360,7 @@ footer {
     .btn-copiar {
         padding: 10px 20px;
         font-size: 0.9em;
-        width: 100%;
+        width: auto;
     }
 
     .ocasiones-select2 {
@@ -4337,12 +4371,6 @@ footer {
     .tab-btn {
         padding: 10px 18px;
         font-size: 0.9em;
-    }
-
-    .btn-copiar {
-        padding: 6px 14px;
-        font-size: 0.85em;
-        width: auto;
     }
 }
 
@@ -4409,7 +4437,7 @@ footer {
     .btn-copiar {
         padding: 10px 16px;
         font-size: 0.85em;
-        width: 100%;
+        width: auto;
     }
 
     .mensajes-pagination {
@@ -4460,7 +4488,34 @@ footer {
     margin-bottom: 12px;
     font-size: 1.1em;
     color: var(--text-color);
-    font-family: 'Playfair Display', serif;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* En escritorio: label y dropdown en la misma línea */
+@media (min-width: 769px) {
+    .filter-select-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .filter-select-wrapper label {
+        display: inline-block;
+        margin-bottom: 0;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .filter-select-wrapper select,
+    .filter-select-wrapper .select2-container {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .filter-select-wrapper .select2-container {
+        width: 100% !important;
+    }
 }
 
 /* Estilos del contenedor principal de Select2 */
@@ -4488,7 +4543,7 @@ footer {
     font-size: 0.95em;
 }
 
-/* Items seleccionados (chips/pills) */
+/* Items seleccionados (chips/pills) - Estilo general */
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
     background: linear-gradient(135deg, var(--primary-gold) 0%, var(--dark-gold) 100%);
     color: var(--white);
@@ -4506,6 +4561,25 @@ footer {
     transform: scale(1.05);
 }
 
+/* Items seleccionados en el dropdown de ocasiones - igual que los otros dropdowns */
+#ocasiones-select2 + .select2-container .select2-selection--multiple .select2-selection__choice {
+    background: var(--white) !important;
+    color: var(--text-color) !important;
+    border: none;
+    border-radius: 6px;
+    padding: 4px 10px;
+    margin: 3px;
+    font-size: 0.9em;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+}
+
+#ocasiones-select2 + .select2-container .select2-selection--multiple .select2-selection__choice:hover {
+    background: var(--off-white) !important;
+    color: var(--text-color) !important;
+}
+
 /* Botón de eliminar en los items seleccionados */
 .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
     color: var(--white);
@@ -4516,6 +4590,18 @@ footer {
 
 .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover {
     color: var(--black);
+}
+
+/* Botón de eliminar en el dropdown de ocasiones */
+#ocasiones-select2 + .select2-container .select2-selection--multiple .select2-selection__choice__remove {
+    color: var(--text-color) !important;
+    margin-right: 6px;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+#ocasiones-select2 + .select2-container .select2-selection--multiple .select2-selection__choice__remove:hover {
+    color: var(--black) !important;
 }
 
 /* Dropdown (lista desplegable) */
@@ -4603,9 +4689,104 @@ footer {
 #priceSort + .select2-container .select2-selection__rendered {
     padding: 0 30px 0 0; /* Padding derecho para espacio del botón clear y la flecha */
     line-height: normal;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Estilo de chip cuando hay una selección en precio - igual que el de ocasiones */
+#priceSort + .select2-container .select2-selection__rendered {
+    background: var(--white) !important;
+    color: var(--text-color) !important;
+    border-radius: 6px;
+    padding: 4px 10px !important;
+    margin: 0;
+    font-size: 0.9em !important;
+    font-weight: 600 !important;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Excepción para cuando es placeholder */
+#priceSort + .select2-container .select2-selection__placeholder {
+    background: transparent !important;
+    padding: 0 !important;
+    font-size: 1em !important;
+    font-weight: normal !important;
+    color: #999 !important;
+}
+
+/* Cuando el rendered contiene placeholder, no aplicar estilo de chip */
+#priceSort + .select2-container .select2-selection__rendered:has(.select2-selection__placeholder) {
+    background: transparent !important;
+    padding: 0 30px 0 0 !important;
+    font-size: 1em !important;
+    font-weight: normal !important;
 }
 
 #priceSort + .select2-container .select2-selection__arrow {
+    height: 100%;
+    right: 10px;
+}
+
+/* Estilos específicos para el selector de categorías (igual que el de precio) */
+#categoria-filtro + .select2-container {
+    width: 100% !important;
+}
+
+#categoria-filtro + .select2-container .select2-selection--single {
+    border: 2px solid var(--light-gold);
+    border-radius: 10px;
+    min-height: 46px;
+    padding: 5px 10px;
+    background: var(--white);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+#categoria-filtro + .select2-container--default.select2-container--focus .select2-selection--single {
+    border-color: var(--primary-gold);
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+#categoria-filtro + .select2-container .select2-selection__rendered {
+    padding: 0 30px 0 0; /* Padding derecho para espacio del botón clear y la flecha */
+    line-height: normal;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Estilo de chip cuando hay una selección en categorías - igual que el de ocasiones */
+#categoria-filtro + .select2-container .select2-selection__rendered {
+    background: var(--white) !important;
+    color: var(--text-color) !important;
+    border-radius: 6px;
+    padding: 4px 10px !important;
+    margin: 0;
+    font-size: 0.9em !important;
+    font-weight: 600 !important;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Excepción para cuando es placeholder */
+#categoria-filtro + .select2-container .select2-selection__placeholder {
+    background: transparent !important;
+    padding: 0 !important;
+    font-size: 1em !important;
+    font-weight: normal !important;
+    color: #999 !important;
+}
+
+/* Cuando el rendered contiene placeholder, no aplicar estilo de chip */
+#categoria-filtro + .select2-container .select2-selection__rendered:has(.select2-selection__placeholder) {
+    background: transparent !important;
+    padding: 0 30px 0 0 !important;
+    font-size: 1em !important;
+    font-weight: normal !important;
+}
+
+#categoria-filtro + .select2-container .select2-selection__arrow {
     height: 100%;
     right: 10px;
 }
@@ -4660,20 +4841,107 @@ footer {
 /* Estilos específicos para el selector de ocasiones de mensajes */
 #ocasiones-select2 + .select2-container {
     width: 100% !important;
+    position: relative;
 }
 
 #ocasiones-select2 + .select2-container .select2-selection--multiple {
     border: 2px solid var(--light-gold);
     border-radius: 10px;
     min-height: 46px;
-    padding: 5px;
+    padding: 5px 10px;
     background: var(--white);
     transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer !important;
 }
 
 #ocasiones-select2 + .select2-container--default.select2-container--focus .select2-selection--multiple {
     border-color: var(--primary-gold);
     box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+/* Estilos de hover para el dropdown de ocasiones (igual que los otros) */
+#ocasiones-select2 + .select2-container--default .select2-selection--multiple:hover {
+    border-color: var(--primary-gold);
+    cursor: pointer;
+}
+
+#ocasiones-select2 + .select2-container--default.select2-container--open .select2-selection--multiple {
+    border-color: var(--primary-gold);
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+#ocasiones-select2 + .select2-container--default.select2-container--open.select2-container--focus .select2-selection--multiple {
+    border-color: var(--primary-gold);
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+/* Asegurar que el placeholder se vea igual que en los dropdowns single y completo */
+#ocasiones-select2 + .select2-container .select2-selection--multiple .select2-selection__placeholder {
+    color: #999 !important;
+    font-size: 1em !important;
+    line-height: normal !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    cursor: pointer !important;
+    white-space: nowrap !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    display: block !important;
+    max-width: calc(100% - 55px) !important;
+    word-break: keep-all !important;
+    box-sizing: border-box !important;
+}
+
+/* Ajustar el contenedor de selección para que se vea igual */
+#ocasiones-select2 + .select2-container .select2-selection__rendered {
+    padding: 0 55px 0 10px;
+    line-height: normal;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 3px;
+    width: 100%;
+    cursor: pointer !important;
+    min-width: 0; /* Permitir que se ajuste al contenedor */
+    overflow: visible; /* Permitir que el placeholder se vea completo */
+    box-sizing: border-box;
+}
+
+/* Ajustar el contenedor de choices para que no afecte el placeholder vacío */
+#ocasiones-select2 + .select2-container .select2-selection__choice-container {
+    margin: 0;
+    padding: 0;
+    cursor: pointer !important;
+}
+
+/* Ocultar el botón clear (X) del lado izquierdo en el dropdown de ocasiones */
+#ocasiones-select2 + .select2-container .select2-selection--multiple .select2-selection__clear {
+    display: none !important;
+}
+
+/* Asegurar que TODOS los elementos dentro del dropdown de ocasiones muestren cursor pointer */
+#ocasiones-select2 + .select2-container .select2-selection--multiple * {
+    cursor: pointer !important;
+}
+
+/* Agregar flecha al dropdown multiple para que se vea igual a los single */
+#ocasiones-select2 + .select2-container .select2-selection--multiple::after {
+    content: '';
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 5px solid #666;
+    pointer-events: none;
+    z-index: 1;
+    cursor: pointer !important;
 }
 
 /* Ajustes responsivos para el select */
@@ -4700,6 +4968,12 @@ footer {
     .select2-container--default .select2-selection--multiple .select2-selection__choice {
         font-size: 0.85em;
         padding: 3px 8px;
+    }
+
+    #categoria-filtro + .select2-container {
+        max-width: 100%;
+        min-width: auto;
+        width: 100% !important;
     }
 
     #priceSort + .select2-container {
@@ -4733,6 +5007,10 @@ footer {
     
     .select2-container--default .select2-selection--multiple {
         min-height: 42px;
+    }
+
+    #categoria-filtro + .select2-container {
+        width: 100% !important;
     }
 
     #priceSort + .select2-container {

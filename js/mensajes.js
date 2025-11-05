@@ -394,7 +394,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const select2Ocasiones = $('#ocasiones-select2');
     if (select2Ocasiones.length) {
         select2Ocasiones.select2({
-            placeholder: 'Buscar o seleccionar ocasiones...',
+            placeholder: 'Seleccionar ocasiones...',
             allowClear: true,
             width: '100%'
         });
