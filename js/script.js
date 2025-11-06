@@ -1480,11 +1480,25 @@ function initCarousel() {
             currentSlide = index;
         }
 
-        // Actualizar slides
+        // Actualizar slides con animación mejorada
         slides.forEach((slide, i) => {
+            const wasActive = slide.classList.contains('active');
             slide.classList.remove('active');
+            
+            // Si el slide estaba activo y ahora no lo está, forzar reflow para resetear animaciones
+            if (wasActive && i !== currentSlide) {
+                const content = slide.querySelector('.carousel-content');
+                if (content) {
+                    // Forzar reflow para resetear las transiciones
+                    void content.offsetWidth;
+                }
+            }
+            
             if (i === currentSlide) {
-                slide.classList.add('active');
+                // Pequeño delay para asegurar que el DOM se actualice
+                requestAnimationFrame(() => {
+                    slide.classList.add('active');
+                });
             }
         });
 
@@ -1606,6 +1620,19 @@ function initCarousel() {
                 }
             }
         }
+    }
+
+    // Asegurar que la animación inicial se ejecute correctamente
+    // Remover y re-agregar la clase active para disparar las transiciones
+    const activeSlide = document.querySelector('.carousel-slide.active');
+    if (activeSlide) {
+        requestAnimationFrame(() => {
+            activeSlide.classList.remove('active');
+            void activeSlide.offsetWidth; // Forzar reflow
+            requestAnimationFrame(() => {
+                activeSlide.classList.add('active');
+            });
+        });
     }
 
     // Iniciar autoplay - funcionará continuamente sin importar dónde esté el usuario
